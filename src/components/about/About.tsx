@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { PortfolioConfig, GithubStats } from '../../types';
-import { PacketSimulator } from './PacketSimulator';
-import { api } from '../../services/api';
+import React, { useState } from 'react';
+import { PortfolioConfig } from '../../types';
 
 interface AboutProps {
   config: PortfolioConfig;
@@ -9,18 +7,7 @@ interface AboutProps {
 }
 
 export const About: React.FC<AboutProps> = ({ config, onImageClick }) => {
-  const [githubStats, setGithubStats] = useState<GithubStats>({
-    repos: '12',
-    stars: '3',
-    activity: 'Fetching latest event...',
-  });
   const [hoveredTech, setHoveredTech] = useState<string | null>(null);
-
-  useEffect(() => {
-    api.getGithubStats().then((stats) => {
-      setGithubStats(stats);
-    });
-  }, []);
 
   const techStack = {
     backend: ['Node.js', 'Express.js', 'Python', 'SQL', 'MySQL', 'Firebase', 'Supabase'],
@@ -118,43 +105,6 @@ export const About: React.FC<AboutProps> = ({ config, onImageClick }) => {
                 <p className="text-xs uppercase tracking-widest opacity-40 mb-2">Tools & AI</p>
                 <div className="flex flex-wrap gap-2">{techStack.tools.map(renderTechPill)}</div>
               </div>
-            </div>
-
-            {/* Interactive Data Flow Simulation */}
-            <PacketSimulator />
-          </div>
-        </div>
-
-        {/* GitHub Activity Section */}
-        <div className="mt-16 pt-16 border-t border-ink/10 dark:border-cream/10">
-          <p className="text-xs tracking-[0.3em] uppercase text-accent mb-6 font-semibold">GitHub Activity</p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-            <div className="border border-ink/10 dark:border-cream/10 p-5 bg-ink/5 dark:bg-cream/5 rounded-sm group hover:border-accent/40 transition-colors duration-300">
-              <p className="text-[10px] uppercase tracking-widest opacity-40">Public Repositories</p>
-              <p className="text-3xl font-display text-accent mt-2 font-normal">{githubStats.repos}</p>
-            </div>
-            <div className="border border-ink/10 dark:border-cream/10 p-5 bg-ink/5 dark:bg-cream/5 rounded-sm group hover:border-accent/40 transition-colors duration-300">
-              <p className="text-[10px] uppercase tracking-widest opacity-40">GitHub Stars</p>
-              <p className="text-3xl font-display text-accent mt-2 font-normal">{githubStats.stars}</p>
-            </div>
-            <div className="border border-ink/10 dark:border-cream/10 p-5 bg-ink/5 dark:bg-cream/5 rounded-sm group hover:border-accent/40 transition-colors duration-300">
-              <p className="text-[10px] uppercase tracking-widest opacity-40">Latest Activity</p>
-              <p className="text-xs font-mono mt-2 text-accent font-semibold leading-relaxed line-clamp-2 h-10 flex items-center">
-                {githubStats.activity}
-              </p>
-            </div>
-          </div>
-
-          <div className="overflow-x-auto pb-2 border border-ink/10 dark:border-cream/10 p-6 bg-ink/5 dark:bg-cream/5 rounded">
-            <div className="min-w-[750px]">
-              <img
-                src="https://ghchart.rshah.org/C8522A/EnzoSoti"
-                alt="Enzo P. Daniela's GitHub Contribution Calendar Heatmap"
-                loading="lazy"
-                decoding="async"
-                className="w-full h-auto select-none"
-              />
             </div>
           </div>
         </div>
