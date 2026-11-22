@@ -65,10 +65,10 @@ export const Home: React.FC = () => {
   // Scrollspy to update URL based on active visible section
   useEffect(() => {
     const sections = ['about', 'experience', 'projects', 'testimonials', 'gallery', 'contact'];
-    let timer: any = null;
+    let timer: ReturnType<typeof setTimeout> | null = null;
 
     const handleScroll = () => {
-      clearTimeout(timer);
+      if (timer) clearTimeout(timer);
       timer = setTimeout(() => {
         let current = '';
         for (const id of sections) {
@@ -94,7 +94,7 @@ export const Home: React.FC = () => {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
-      clearTimeout(timer);
+      if (timer) clearTimeout(timer);
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
@@ -129,6 +129,12 @@ export const Home: React.FC = () => {
 
   return (
     <div className="bg-[#E5E1DA] dark:bg-[#080706] text-ink dark:text-cream min-h-screen transition-colors duration-300 font-mono relative selection:bg-accent selection:text-white">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:px-4 focus:py-2 focus:bg-accent focus:text-white focus:text-xs focus:uppercase focus:tracking-widest"
+      >
+        Skip to main content
+      </a>
       <ScrollProgress />
       <CustomCursor />
       <Navbar
@@ -137,8 +143,11 @@ export const Home: React.FC = () => {
         onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
       />
 
-      <main>
-        <Hero config={config} />
+      <main id="main-content">
+        <Hero
+          config={config}
+          liveProjectCount={projects.filter((p) => Boolean(p.liveUrl)).length}
+        />
         <About config={config} onImageClick={handleOpenImageModal} />
         <ExperienceSection experiences={experiences} onImageClick={handleOpenImageModal} />
         <Projects
@@ -172,6 +181,7 @@ export const Home: React.FC = () => {
         isOpen={isCommandPaletteOpen}
         onClose={() => setIsCommandPaletteOpen(false)}
         onNavigateSection={handleNavigateSection}
+        projects={projects}
       />
     </div>
   );

@@ -62,8 +62,8 @@ html.dark .section-card--footer {
   }
 }
 
-/* Hide default cursor on desktop for custom fluid cursor */
-@media (min-width: 768px) {
+/* Hide default cursor on desktop with fine pointer for custom fluid cursor */
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
   html, body, a, button, input, textarea, .previewable-img, .filter-btn, .cursor-zoom-in, .cursor-zoom-out {
     cursor: none !important;
   }
@@ -154,4 +154,19 @@ html.dark .section-card--footer {
 
 .animate-shake {
   animation: shake 0.5s ease-in-out;
+}
+
+/* Respect user motion preferences (WCAG 2.3.3 / 2.2.2) */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -10,13 +10,19 @@ interface ProjectsProps {
 export const Projects: React.FC<ProjectsProps> = ({ projects, onImageClick, onSelectProject }) => {
   const [filter, setFilter] = useState('all');
 
-  const filterButtons = [
+  const allFilterButtons = [
     { label: 'All', value: 'all' },
     { label: 'React', value: 'react' },
     { label: 'Node.js', value: 'node' },
     { label: 'Databases', value: 'database' },
     { label: 'Vanilla JS', value: 'vanilla' },
   ];
+
+  const filterButtons = allFilterButtons.filter(
+    (btn) =>
+      btn.value === 'all' ||
+      projects.some((p) => (p.category || '').toLowerCase().split(' ').includes(btn.value))
+  );
 
   const filteredProjects = projects.filter((p) => {
     if (filter === 'all') return true;
@@ -60,6 +66,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects, onImageClick, onSe
               <button
                 key={btn.value}
                 onClick={() => setFilter(btn.value)}
+                aria-pressed={filter === btn.value}
                 className={`filter-btn px-3 py-1 border transition-all duration-200 ${
                   filter === btn.value
                     ? 'border-accent bg-accent text-cream'
@@ -95,6 +102,8 @@ export const Projects: React.FC<ProjectsProps> = ({ projects, onImageClick, onSe
                   <img
                     src={featured.imageUrl}
                     alt={featured.title}
+                    loading="lazy"
+                    decoding="async"
                     onClick={() => onSelectProject ? onSelectProject(featured) : onImageClick(featured.imageUrl!, featured.title)}
                     className="project-img previewable-img w-full h-72 sm:h-96 object-cover cursor-pointer"
                   />
@@ -122,7 +131,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects, onImageClick, onSe
                   <p className="text-sm opacity-70 max-w-xl leading-relaxed mb-4">{featured.description}</p>
                   
                   <div className="flex flex-wrap gap-2">
-                    {featured.tags
+                    {(featured.tags || '')
                       .split(',')
                       .filter((t) => t.trim())
                       .map((t, idx) => (
@@ -144,6 +153,16 @@ export const Projects: React.FC<ProjectsProps> = ({ projects, onImageClick, onSe
                     >
                       Case Study
                     </button>
+                  )}
+                  {featured.githubUrl && (
+                    <a
+                      href={featured.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2 border border-ink/20 dark:border-cream/20 text-xs tracking-wider uppercase hover:border-accent hover:text-accent transition-colors"
+                    >
+                      Code ↗
+                    </a>
                   )}
                   {featured.liveUrl && (
                     <a
@@ -175,6 +194,8 @@ export const Projects: React.FC<ProjectsProps> = ({ projects, onImageClick, onSe
                       <img
                         src={p.imageUrl}
                         alt={p.title}
+                        loading="lazy"
+                        decoding="async"
                         onClick={() => onSelectProject ? onSelectProject(p) : onImageClick(p.imageUrl!, p.title)}
                         className="project-img previewable-img w-full h-44 object-cover cursor-pointer"
                       />
@@ -200,7 +221,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects, onImageClick, onSe
                     <p className="text-xs opacity-60 mb-3 line-clamp-2 leading-relaxed">{p.description}</p>
                     
                     <div className="flex flex-wrap gap-1.5 mt-2">
-                      {p.tags
+                      {(p.tags || '')
                         .split(',')
                         .filter((t) => t.trim())
                         .map((t, idx) => (
@@ -215,7 +236,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects, onImageClick, onSe
                   </div>
                 </div>
 
-                <div className="p-5 pt-0 flex items-center justify-between gap-2 border-t border-ink/5 dark:border-cream/5 mt-3">
+                <div className="p-5 pt-3 flex items-center justify-between gap-2 border-t border-ink/5 dark:border-cream/5 mt-3">
                   {onSelectProject ? (
                     <button
                       onClick={() => onSelectProject(p)}
@@ -223,29 +244,34 @@ export const Projects: React.FC<ProjectsProps> = ({ projects, onImageClick, onSe
                     >
                       Details →
                     </button>
-                  ) : <span />}
-
-                  {p.liveUrl ? (
-                    <a
-                      href={p.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[11px] uppercase tracking-wider text-accent font-semibold hover:underline"
-                    >
-                      Live ↗
-                    </a>
-                  ) : p.githubUrl ? (
-                    <a
-                      href={p.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[11px] uppercase tracking-wider text-accent font-semibold hover:underline"
-                    >
-                      Code ↗
-                    </a>
                   ) : (
-                    <span className="text-[10px] opacity-30 font-mono">Internal</span>
+                    <span />
                   )}
+
+                  <div className="flex items-center gap-3">
+                    {p.githubUrl && (
+                      <a
+                        href={p.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[11px] uppercase tracking-wider opacity-60 hover:opacity-100 hover:text-accent transition-colors"
+                      >
+                        Code
+                      </a>
+                    )}
+                    {p.liveUrl ? (
+                      <a
+                        href={p.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[11px] uppercase tracking-wider text-accent font-semibold hover:underline"
+                      >
+                        Live ↗
+                      </a>
+                    ) : !p.githubUrl ? (
+                      <span className="text-[10px] opacity-30 font-mono">Internal</span>
+                    ) : null}
+                  </div>
                 </div>
               </div>
             ))}

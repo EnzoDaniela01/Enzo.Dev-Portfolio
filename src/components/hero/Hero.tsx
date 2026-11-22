@@ -4,9 +4,10 @@ import { useToast } from '../../context/ToastContext';
 
 interface HeroProps {
   config: PortfolioConfig;
+  liveProjectCount?: number;
 }
 
-export const Hero: React.FC<HeroProps> = ({ config }) => {
+export const Hero: React.FC<HeroProps> = ({ config, liveProjectCount }) => {
   const { showToast } = useToast();
   const [copied, setCopied] = useState(false);
 
@@ -33,8 +34,8 @@ export const Hero: React.FC<HeroProps> = ({ config }) => {
           </p>
         </div>
 
-        {/* Big editorial headline */}
-        <div className="animate-fade-up stagger-2">
+        {/* Big editorial headline (immediately visible for optimal LCP) */}
+        <div>
           <h1 className="font-display text-[clamp(3rem,10vw,8rem)] leading-none font-normal tracking-tight mb-2">
             <span>{config.heroName1 || 'Enzo'}</span>
             <br />
@@ -70,7 +71,9 @@ export const Hero: React.FC<HeroProps> = ({ config }) => {
         {/* Quick Stats row */}
         <div className="animate-fade-up stagger-4 grid grid-cols-2 sm:grid-cols-4 border-b border-ink/15 dark:border-cream/15">
           <div className="py-6 pr-6 border-r border-ink/15 dark:border-cream/15">
-            <p className="font-display text-4xl font-normal text-accent">5+</p>
+            <p className="font-display text-4xl font-normal text-accent">
+              {liveProjectCount ? `${liveProjectCount}+` : '7+'}
+            </p>
             <p className="text-xs uppercase tracking-widest opacity-50 mt-1">Live Systems</p>
           </div>
           <div className="py-6 px-6 border-r border-ink/15 dark:border-cream/15">

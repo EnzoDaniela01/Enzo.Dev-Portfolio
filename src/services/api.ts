@@ -20,6 +20,12 @@ function authHeaders() {
   };
 }
 
+function handleUnauthorized(res: Response) {
+  if (res.status === 401) {
+    localStorage.removeItem('adminToken');
+  }
+}
+
 export const api = {
   async getPortfolio(): Promise<{
     config: PortfolioConfig;
@@ -90,11 +96,16 @@ export const api = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credentials),
     });
-    const data = await res.json();
+    let data: { token?: string; error?: string } = {};
+    try {
+      data = await res.json();
+    } catch {
+      throw new Error(res.ok ? 'Invalid server response' : `Server error (${res.status})`);
+    }
     if (!res.ok || !data.token) {
       throw new Error(data.error || 'Invalid credentials');
     }
-    return data;
+    return { token: data.token };
   },
 
   async verifyAdminToken(token: string): Promise<boolean> {
@@ -136,66 +147,72 @@ export const api = {
 
   // Projects CRUD
   async saveProject(project: Partial<Project>, id?: string): Promise<Project> {
-    const url = id ? `${API_BASE}/api/projects/${id}` : `${API_BASE}/api/projects`;
+    const url = id ? `${API_BASE}/api/projects/${encodeURIComponent(id)}` : `${API_BASE}/api/projects`;
     const method = id ? 'PUT' : 'POST';
     const res = await fetch(url, {
       method,
       headers: authHeaders(),
       body: JSON.stringify(project),
     });
+    handleUnauthorized(res);
     if (!res.ok) throw new Error('Failed to save project');
     return await res.json();
   },
 
   async deleteProject(id: string): Promise<boolean> {
-    const res = await fetch(`${API_BASE}/api/projects/${id}`, {
+    const res = await fetch(`${API_BASE}/api/projects/${encodeURIComponent(id)}`, {
       method: 'DELETE',
       headers: authHeaders(),
     });
+    handleUnauthorized(res);
     if (!res.ok) throw new Error('Failed to delete project');
     return true;
   },
 
   // Experiences CRUD
   async saveExperience(experience: Partial<Experience>, id?: string): Promise<Experience> {
-    const url = id ? `${API_BASE}/api/experiences/${id}` : `${API_BASE}/api/experiences`;
+    const url = id ? `${API_BASE}/api/experiences/${encodeURIComponent(id)}` : `${API_BASE}/api/experiences`;
     const method = id ? 'PUT' : 'POST';
     const res = await fetch(url, {
       method,
       headers: authHeaders(),
       body: JSON.stringify(experience),
     });
+    handleUnauthorized(res);
     if (!res.ok) throw new Error('Failed to save experience');
     return await res.json();
   },
 
   async deleteExperience(id: string): Promise<boolean> {
-    const res = await fetch(`${API_BASE}/api/experiences/${id}`, {
+    const res = await fetch(`${API_BASE}/api/experiences/${encodeURIComponent(id)}`, {
       method: 'DELETE',
       headers: authHeaders(),
     });
+    handleUnauthorized(res);
     if (!res.ok) throw new Error('Failed to delete experience');
     return true;
   },
 
   // Gallery CRUD
   async saveGalleryItem(item: Partial<GalleryItem>, id?: string): Promise<GalleryItem> {
-    const url = id ? `${API_BASE}/api/gallery/${id}` : `${API_BASE}/api/gallery`;
+    const url = id ? `${API_BASE}/api/gallery/${encodeURIComponent(id)}` : `${API_BASE}/api/gallery`;
     const method = id ? 'PUT' : 'POST';
     const res = await fetch(url, {
       method,
       headers: authHeaders(),
       body: JSON.stringify(item),
     });
+    handleUnauthorized(res);
     if (!res.ok) throw new Error('Failed to save gallery item');
     return await res.json();
   },
 
   async deleteGalleryItem(id: string): Promise<boolean> {
-    const res = await fetch(`${API_BASE}/api/gallery/${id}`, {
+    const res = await fetch(`${API_BASE}/api/gallery/${encodeURIComponent(id)}`, {
       method: 'DELETE',
       headers: authHeaders(),
     });
+    handleUnauthorized(res);
     if (!res.ok) throw new Error('Failed to delete gallery item');
     return true;
   },

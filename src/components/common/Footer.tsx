@@ -10,6 +10,7 @@ export const Footer: React.FC = () => {
             to="/admin"
             className="hover:text-accent transition-colors duration-200"
             title="EPD Control Room"
+            aria-label="Admin Control Room"
           >
             ©
           </Link>{' '}

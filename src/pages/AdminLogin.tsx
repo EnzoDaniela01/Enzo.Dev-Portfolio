@@ -58,31 +58,42 @@ export const AdminLogin: React.FC = () => {
         >
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="text-[10px] uppercase tracking-widest opacity-40 block mb-2">Email</label>
+              <label htmlFor="admin-email" className="text-[10px] uppercase tracking-widest opacity-40 block mb-2">
+                Email
+              </label>
               <input
-                type="text"
+                id="admin-email"
+                type="email"
+                autoComplete="username"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@enzo.dev"
-                className="w-full bg-transparent border-b border-cream/10 py-2.5 text-sm focus:outline-none focus:border-accent transition-colors duration-300 placeholder-cream/20 text-cream"
+                placeholder="admin@example.com"
+                className="w-full bg-transparent border-b border-cream/10 py-2.5 text-sm focus:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent transition-colors duration-300 placeholder-cream/20 text-cream"
               />
             </div>
 
             <div>
-              <label className="text-[10px] uppercase tracking-widest opacity-40 block mb-2">Password</label>
+              <label htmlFor="admin-password" className="text-[10px] uppercase tracking-widest opacity-40 block mb-2">
+                Password
+              </label>
               <input
+                id="admin-password"
                 type="password"
+                autoComplete="current-password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full bg-transparent border-b border-cream/10 py-2.5 text-sm focus:outline-none focus:border-accent transition-colors duration-300 placeholder-cream/20 text-cream"
+                className="w-full bg-transparent border-b border-cream/10 py-2.5 text-sm focus:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent transition-colors duration-300 placeholder-cream/20 text-cream"
               />
             </div>
 
             {error && (
-              <div className="text-xs text-red-400 tracking-wider py-2 px-3 border border-red-500/20 bg-red-500/5 rounded-sm">
+              <div
+                role="alert"
+                className="text-xs text-red-400 tracking-wider py-2 px-3 border border-red-500/20 bg-red-500/5 rounded-sm"
+              >
                 {error}
               </div>
             )}

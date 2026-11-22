@@ -39,8 +39,18 @@ export const Gallery: React.FC<GalleryProps> = ({ galleryItems, onImageClick }) 
     track.addEventListener('scroll', updateGalleryState, { passive: true });
     updateGalleryState();
 
-    // Keyboard navigation when gallery is in view
+    // Keyboard navigation when gallery is in view (ignore when typing in inputs)
     const handleKeyDown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (
+        target &&
+        (target.tagName === 'INPUT' ||
+          target.tagName === 'TEXTAREA' ||
+          target.tagName === 'SELECT' ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
       const section = document.getElementById('gallery');
       if (!section) return;
       const rect = section.getBoundingClientRect();
@@ -133,6 +143,8 @@ export const Gallery: React.FC<GalleryProps> = ({ galleryItems, onImageClick }) 
                   <img
                     src={item.imageUrl}
                     alt={item.title}
+                    loading="lazy"
+                    decoding="async"
                     onClick={() => onImageClick(item.imageUrl, item.title)}
                     className="previewable-img w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out cursor-zoom-in"
                   />

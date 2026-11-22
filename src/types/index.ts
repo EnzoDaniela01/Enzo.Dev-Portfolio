@@ -28,6 +28,7 @@ export interface Project {
   badge?: string;
   sortOrder: number;
   featured?: boolean;
+  highlights?: string[];
 }
 
 export interface Experience {

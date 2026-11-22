@@ -12,15 +12,25 @@ export const Contact: React.FC<ContactProps> = ({ config }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success'>('idle');
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'fallback'>('idle');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !email || !message) return;
+    const trimmedName = name.trim();
+    const trimmedEmail = email.trim();
+    const trimmedMessage = message.trim();
+    if (!trimmedName || !trimmedEmail || !trimmedMessage) {
+      showToast('Please fill out all fields.', 'error');
+      return;
+    }
 
     setStatus('sending');
 
-    const success = await api.sendContactMessage({ name, email, message });
+    const success = await api.sendContactMessage({
+      name: trimmedName,
+      email: trimmedEmail,
+      message: trimmedMessage,
+    });
 
     if (success) {
       setStatus('success');
@@ -31,12 +41,12 @@ export const Contact: React.FC<ContactProps> = ({ config }) => {
       setTimeout(() => setStatus('idle'), 3000);
     } else {
       // Fallback to mailto
-      setStatus('success');
+      setStatus('fallback');
       showToast('Opening mail client...', 'info');
       setTimeout(() => {
         window.location.href = `mailto:${config.email || 'parane.enzo@gmail.com'}?subject=Inquiry from ${encodeURIComponent(
-          name
-        )}&body=${encodeURIComponent(message)}%0A%0AReply to: ${encodeURIComponent(email)}`;
+          trimmedName
+        )}&body=${encodeURIComponent(trimmedMessage)}%0A%0AReply to: ${encodeURIComponent(trimmedEmail)}`;
         setName('');
         setEmail('');
         setMessage('');
@@ -66,31 +76,39 @@ export const Contact: React.FC<ContactProps> = ({ config }) => {
               <div className="relative">
                 <input
                   type="text"
+                  aria-label="Your Name"
+                  autoComplete="name"
+                  maxLength={100}
                   placeholder="Name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
-                  className="w-full bg-transparent border-b border-ink/20 dark:border-cream/20 py-2 text-xs focus:outline-none focus:border-accent transition-colors duration-300 placeholder-ink/40 dark:placeholder-cream/40 text-ink dark:text-cream"
+                  className="w-full bg-transparent border-b border-ink/20 dark:border-cream/20 py-2 text-xs focus:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent transition-colors duration-300 placeholder-ink/40 dark:placeholder-cream/40 text-ink dark:text-cream"
                 />
               </div>
               <div className="relative">
                 <input
                   type="email"
+                  aria-label="Your Email"
+                  autoComplete="email"
+                  maxLength={160}
                   placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full bg-transparent border-b border-ink/20 dark:border-cream/20 py-2 text-xs focus:outline-none focus:border-accent transition-colors duration-300 placeholder-ink/40 dark:placeholder-cream/40 text-ink dark:text-cream"
+                  className="w-full bg-transparent border-b border-ink/20 dark:border-cream/20 py-2 text-xs focus:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent transition-colors duration-300 placeholder-ink/40 dark:placeholder-cream/40 text-ink dark:text-cream"
                 />
               </div>
               <div className="relative">
                 <textarea
+                  aria-label="Your Message"
+                  maxLength={2000}
                   placeholder="Message"
                   rows={3}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   required
-                  className="w-full bg-transparent border-b border-ink/20 dark:border-cream/20 py-2 text-xs focus:outline-none focus:border-accent transition-colors duration-300 placeholder-ink/40 dark:placeholder-cream/40 resize-none text-ink dark:text-cream"
+                  className="w-full bg-transparent border-b border-ink/20 dark:border-cream/20 py-2 text-xs focus:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent transition-colors duration-300 placeholder-ink/40 dark:placeholder-cream/40 resize-none text-ink dark:text-cream"
                 />
               </div>
 
@@ -100,7 +118,7 @@ export const Contact: React.FC<ContactProps> = ({ config }) => {
                 className={`w-full inline-flex items-center justify-center gap-3 px-6 py-3 text-xs tracking-widest uppercase transition-all duration-300 border border-transparent ${
                   status === 'success'
                     ? 'bg-emerald-600 text-cream'
-                    : status === 'sending'
+                    : status === 'sending' || status === 'fallback'
                     ? 'bg-accent text-cream opacity-90'
                     : 'bg-ink text-cream dark:bg-cream dark:text-ink hover:opacity-90'
                 }`}
@@ -110,6 +128,8 @@ export const Contact: React.FC<ContactProps> = ({ config }) => {
                     ? 'Sending...'
                     : status === 'success'
                     ? 'Message Saved!'
+                    : status === 'fallback'
+                    ? 'Opening Mail Client...'
                     : 'Send Message'}
                 </span>
                 <span>{status === 'sending' ? '⋯' : status === 'success' ? '✓' : '→'}</span>

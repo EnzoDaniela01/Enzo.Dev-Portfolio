@@ -56,6 +56,8 @@ export const About: React.FC<AboutProps> = ({ config, onImageClick }) => {
               <img
                 src={config.profileImg || '/image/gradpic.jpg'}
                 alt="Enzo P. Daniela"
+                loading="lazy"
+                decoding="async"
                 onClick={() =>
                   onImageClick(config.profileImg || '/image/gradpic.jpg', 'Enzo P. Daniela')
                 }
@@ -149,6 +151,8 @@ export const About: React.FC<AboutProps> = ({ config, onImageClick }) => {
               <img
                 src="https://ghchart.rshah.org/C8522A/EnzoSoti"
                 alt="Enzo P. Daniela's GitHub Contribution Calendar Heatmap"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-auto select-none"
               />
             </div>

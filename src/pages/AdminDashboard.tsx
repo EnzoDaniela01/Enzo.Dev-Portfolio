@@ -52,20 +52,37 @@ export const AdminDashboard: React.FC = () => {
 
   // Auth guard & initial fetch
   useEffect(() => {
+    let active = true;
     const token = localStorage.getItem('adminToken');
     if (!token) {
       navigate('/admin');
       return;
     }
 
-    api.getPortfolio()
-      .then((data) => {
-        setConfig(data.config);
-        setProjects(data.projects);
-        setExperiences(data.experiences);
-        setGallery(data.gallery);
-      })
-      .finally(() => setLoading(false));
+    api.verifyAdminToken(token).then((valid) => {
+      if (!active) return;
+      if (!valid) {
+        localStorage.removeItem('adminToken');
+        navigate('/admin');
+        return;
+      }
+
+      api.getPortfolio()
+        .then((data) => {
+          if (!active) return;
+          setConfig(data.config);
+          setProjects(data.projects);
+          setExperiences(data.experiences);
+          setGallery(data.gallery);
+        })
+        .finally(() => {
+          if (active) setLoading(false);
+        });
+    });
+
+    return () => {
+      active = false;
+    };
   }, [navigate]);
 
   const handleLogout = () => {
@@ -86,6 +103,17 @@ export const AdminDashboard: React.FC = () => {
   const handleProfileImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+    const MAX_BYTES = 5 * 1024 * 1024; // 5 MB
+    if (!ALLOWED_TYPES.includes(file.type)) {
+      showToast('Only JPG, PNG, and WebP images are allowed.', 'error');
+      return;
+    }
+    if (file.size > MAX_BYTES) {
+      showToast('Image must be 5 MB or smaller.', 'error');
+      return;
+    }
 
     try {
       showToast('Uploading profile image...', 'info');

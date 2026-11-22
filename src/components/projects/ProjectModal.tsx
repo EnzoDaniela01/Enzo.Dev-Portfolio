@@ -8,14 +8,14 @@ interface ProjectModalProps {
 
 export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
   useEffect(() => {
+    if (!project) return;
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
 
-    if (project) {
-      document.body.style.overflow = 'hidden';
-      window.addEventListener('keydown', handleKeyDown);
-    }
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
 
     return () => {
       document.body.style.overflow = '';
@@ -27,6 +27,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
   return (
     <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="project-modal-title"
       onClick={onClose}
       className="fixed inset-0 z-[150] bg-ink/80 dark:bg-black/90 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200 overflow-y-auto"
     >
@@ -47,7 +50,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 </span>
               )}
             </div>
-            <h2 className="font-display text-2xl sm:text-3xl font-normal leading-tight">
+            <h2 id="project-modal-title" className="font-display text-2xl sm:text-3xl font-normal leading-tight">
               {project.title}
             </h2>
           </div>
@@ -85,7 +88,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
               Technologies & Tooling
             </h4>
             <div className="flex flex-wrap gap-2">
-              {project.tags
+              {(project.tags || '')
                 .split(',')
                 .filter(Boolean)
                 .map((t, idx) => (
@@ -105,18 +108,19 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
               Engineering Architecture
             </h4>
             <ul className="space-y-1.5 text-xs opacity-75">
-              <li className="flex items-start gap-2">
-                <span className="text-accent">•</span>
-                <span>Modular component hierarchy with responsive cross-device layouts.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-accent">•</span>
-                <span>Optimized state management and client-side data caching.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-accent">•</span>
-                <span>Strict RESTful endpoint design with robust error handling.</span>
-              </li>
+              {(project.highlights && project.highlights.length > 0
+                ? project.highlights
+                : [
+                    'Modular component hierarchy with responsive cross-device layouts.',
+                    'Optimized state management and client-side data persistence.',
+                    'Clean architecture with robust error handling and deployment pipeline.',
+                  ]
+              ).map((item, idx) => (
+                <li key={idx} className="flex items-start gap-2">
+                  <span className="text-accent">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

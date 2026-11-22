@@ -1,69 +1,92 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 export const CustomCursor: React.FC = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
   const dotRef = useRef<HTMLDivElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
-  const [isDashed, setIsDashed] = useState(false);
 
   useEffect(() => {
-    let mouseX = 0;
-    let mouseY = 0;
-    let posX = 0;
-    let posY = 0;
-    let animFrameId: number;
+    const finePointer = window.matchMedia('(min-width: 768px) and (hover: hover) and (pointer: fine)');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (!finePointer.matches || reducedMotion.matches) return;
 
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      if (dotRef.current) {
-        dotRef.current.style.left = `${mouseX}px`;
-        dotRef.current.style.top = `${mouseY}px`;
-      }
-    };
+    let mouseX = -100;
+    let mouseY = -100;
+    let posX = -100;
+    let posY = -100;
+    let animFrameId: number | null = null;
+    let isVisible = false;
 
     const animate = () => {
       posX += (mouseX - posX) * 0.15;
       posY += (mouseY - posY) * 0.15;
       if (cursorRef.current) {
-        cursorRef.current.style.left = `${posX}px`;
-        cursorRef.current.style.top = `${posY}px`;
+        cursorRef.current.style.transform = `translate3d(${posX}px, ${posY}px, 0) translate(-50%, -50%)`;
       }
-      animFrameId = requestAnimationFrame(animate);
+      if (Math.abs(mouseX - posX) > 0.2 || Math.abs(mouseY - posY) > 0.2) {
+        animFrameId = requestAnimationFrame(animate);
+      } else {
+        animFrameId = null;
+      }
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (!isVisible) {
+        isVisible = true;
+        posX = mouseX;
+        posY = mouseY;
+        cursorRef.current?.classList.remove('opacity-0');
+        dotRef.current?.classList.remove('opacity-0');
+      }
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+      }
+      if (animFrameId === null) {
+        animFrameId = requestAnimationFrame(animate);
+      }
+    };
+
+    const handleMouseLeave = () => {
+      isVisible = false;
+      cursorRef.current?.classList.add('opacity-0');
+      dotRef.current?.classList.add('opacity-0');
     };
 
     const hoverSelector = 'a, button, input, textarea, .previewable-img, .filter-btn, #themeToggle, .tech-pill, .interactive-card';
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = (e.target as HTMLElement)?.closest(hoverSelector);
-      if (target) {
-        setIsHovered(true);
+      if (target && cursorRef.current) {
+        cursorRef.current.classList.add('w-12', 'h-12', 'bg-accent/10');
+        cursorRef.current.classList.remove('w-8', 'h-8');
         if (target.classList.contains('previewable-img') || target.id === 'themeToggle') {
-          setIsDashed(true);
+          cursorRef.current.classList.add('border-dashed');
         } else {
-          setIsDashed(false);
+          cursorRef.current.classList.remove('border-dashed');
         }
       }
     };
 
     const handleMouseOut = (e: MouseEvent) => {
       const target = (e.target as HTMLElement)?.closest(hoverSelector);
-      if (target) {
-        setIsHovered(false);
-        setIsDashed(false);
+      if (target && cursorRef.current) {
+        cursorRef.current.classList.remove('w-12', 'h-12', 'bg-accent/10', 'border-dashed');
+        cursorRef.current.classList.add('w-8', 'h-8');
       }
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    document.addEventListener('mouseleave', handleMouseLeave);
     document.addEventListener('mouseover', handleMouseOver);
     document.addEventListener('mouseout', handleMouseOut);
-    animate();
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseover', handleMouseOver);
       document.removeEventListener('mouseout', handleMouseOut);
-      cancelAnimationFrame(animFrameId);
+      if (animFrameId !== null) cancelAnimationFrame(animFrameId);
     };
   }, []);
 
@@ -71,13 +94,13 @@ export const CustomCursor: React.FC = () => {
     <>
       <div
         ref={cursorRef}
-        className={`hidden md:block fixed w-8 h-8 rounded-full border border-accent pointer-events-none z-[100] -translate-x-1/2 -translate-y-1/2 transition-transform duration-200 ease-out ${
-          isHovered ? 'scale-150 bg-accent/10' : 'scale-100'
-        } ${isDashed ? 'border-dashed' : ''}`}
+        aria-hidden="true"
+        className="hidden md:block fixed top-0 left-0 w-8 h-8 rounded-full border border-accent pointer-events-none z-[100] opacity-0 transition-[width,height,opacity,background-color] duration-200 ease-out will-change-transform"
       />
       <div
         ref={dotRef}
-        className="hidden md:block fixed w-2 h-2 rounded-full bg-accent pointer-events-none z-[100] -translate-x-1/2 -translate-y-1/2"
+        aria-hidden="true"
+        className="hidden md:block fixed top-0 left-0 w-2 h-2 rounded-full bg-accent pointer-events-none z-[100] opacity-0 transition-opacity duration-200 will-change-transform"
       />
     </>
   );

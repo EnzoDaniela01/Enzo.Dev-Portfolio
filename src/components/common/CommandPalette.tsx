@@ -2,11 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
 import { useToast } from '../../context/ToastContext';
+import { Project } from '../../types';
 
 interface CommandPaletteProps {
   isOpen: boolean;
   onClose: () => void;
   onNavigateSection: (sectionId: string) => void;
+  projects?: Project[];
 }
 
 interface CommandItem {
@@ -21,6 +23,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   isOpen,
   onClose,
   onNavigateSection,
+  projects = [],
 }) => {
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -77,43 +80,18 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
       },
     },
 
-    // Projects
-    {
-      id: 'proj-fintech',
-      label: 'Launch FinTech Pro (Budget & Salary Tracker)',
-      category: 'Projects',
-      action: () => {
-        window.open('https://sotbt.vercel.app/', '_blank');
-        onClose();
-      },
-    },
-    {
-      id: 'proj-gym',
-      label: 'Launch Gym Management System (Capstone)',
-      category: 'Projects',
-      action: () => {
-        window.open('https://fitworxgymph.web.app/', '_blank');
-        onClose();
-      },
-    },
-    {
-      id: 'proj-attendance',
-      label: 'Launch Attendance Monitoring System (IBP)',
-      category: 'Projects',
-      action: () => {
-        window.open('https://attendance-tracker-asean.vercel.app/', '_blank');
-        onClose();
-      },
-    },
-    {
-      id: 'proj-grade',
-      label: 'Launch Grade Calculator (STI)',
-      category: 'Projects',
-      action: () => {
-        window.open('https://grade-calculator-xi.vercel.app/', '_blank');
-        onClose();
-      },
-    },
+    // Projects (dynamically synced from portfolio projects)
+    ...projects
+      .filter((p) => p.liveUrl || p.githubUrl)
+      .map((p): CommandItem => ({
+        id: `proj-${p.id}`,
+        label: `Launch ${p.title}${p.badge ? ` (${p.badge})` : ''}`,
+        category: 'Projects',
+        action: () => {
+          window.open(p.liveUrl || p.githubUrl, '_blank', 'noopener,noreferrer');
+          onClose();
+        },
+      })),
 
     // Actions
     {
@@ -131,7 +109,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
       label: 'Download Resume PDF',
       category: 'Actions',
       action: () => {
-        window.open('/doc/Enzo%20Daniela%20Resume.pdf', '_blank');
+        window.open('/doc/Enzo%20Daniela%20Resume.pdf', '_blank', 'noopener,noreferrer');
         onClose();
       },
     },
@@ -140,7 +118,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
       label: 'Open GitHub Profile (@EnzoSoti)',
       category: 'Actions',
       action: () => {
-        window.open('https://github.com/EnzoSoti', '_blank');
+        window.open('https://github.com/EnzoSoti', '_blank', 'noopener,noreferrer');
         onClose();
       },
     },
@@ -149,7 +127,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
       label: 'Open LinkedIn Profile',
       category: 'Actions',
       action: () => {
-        window.open('https://www.linkedin.com/in/enzo-daniela-685374324/', '_blank');
+        window.open('https://www.linkedin.com/in/enzo-daniela-685374324/', '_blank', 'noopener,noreferrer');
         onClose();
       },
     },
@@ -185,7 +163,8 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     if (isOpen) {
       setQuery('');
       setSelectedIndex(0);
-      setTimeout(() => inputRef.current?.focus(), 50);
+      const timer = setTimeout(() => inputRef.current?.focus(), 50);
+      return () => clearTimeout(timer);
     }
   }, [isOpen]);
 
@@ -217,6 +196,9 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
 
   return (
     <div
+      role="dialog"
+      aria-modal="true"
+      aria-label="Command palette"
       onClick={onClose}
       className="fixed inset-0 z-[160] bg-ink/80 dark:bg-black/85 backdrop-blur-md flex items-start justify-center pt-24 px-4 animate-in fade-in duration-200"
     >
@@ -226,10 +208,11 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
       >
         {/* Search Header */}
         <div className="flex items-center px-4 border-b border-ink/10 dark:border-cream/10 h-14">
-          <span className="text-accent text-sm mr-3 font-semibold">&gt;</span>
+          <span className="text-accent text-sm mr-3 font-semibold" aria-hidden="true">&gt;</span>
           <input
             ref={inputRef}
             type="text"
+            aria-label="Search commands and projects"
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);

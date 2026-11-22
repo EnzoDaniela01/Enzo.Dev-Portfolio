@@ -52,11 +52,17 @@ export const PacketSimulator: React.FC = () => {
     return { clientX, clientY, apiX, apiY, dbX, dbY };
   };
 
+  const isMountedRef = useRef(true);
+  const activeRafRef = useRef<number | null>(null);
+
   useEffect(() => {
+    isMountedRef.current = true;
     const timer = setTimeout(updatePaths, 300);
     window.addEventListener('resize', updatePaths);
     return () => {
+      isMountedRef.current = false;
       clearTimeout(timer);
+      if (activeRafRef.current !== null) cancelAnimationFrame(activeRafRef.current);
       window.removeEventListener('resize', updatePaths);
     };
   }, []);
@@ -78,12 +84,16 @@ export const PacketSimulator: React.FC = () => {
     by: number,
     duration = 650
   ): Promise<void> => {
-    if (!packetEl) return Promise.resolve();
-    packetEl.setAttribute('opacity', '1');
+    if (!packetEl || !isMountedRef.current) return Promise.resolve();
+    packetEl.style.opacity = '1';
     const startTime = performance.now();
 
     return new Promise((resolve) => {
       function update(time: number) {
+        if (!isMountedRef.current) {
+          resolve();
+          return;
+        }
         const elapsed = time - startTime;
         const progress = Math.min(elapsed / duration, 1);
         const ease = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
@@ -95,13 +105,14 @@ export const PacketSimulator: React.FC = () => {
         packetEl?.setAttribute('cy', y.toString());
 
         if (progress < 1) {
-          requestAnimationFrame(update);
+          activeRafRef.current = requestAnimationFrame(update);
         } else {
-          packetEl?.setAttribute('opacity', '0');
+          if (packetEl) packetEl.style.opacity = '0';
+          activeRafRef.current = null;
           resolve();
         }
       }
-      requestAnimationFrame(update);
+      activeRafRef.current = requestAnimationFrame(update);
     });
   };
 
@@ -229,28 +240,32 @@ export const PacketSimulator: React.FC = () => {
             ref={packetClientApiRef}
             r="4"
             fill="#C8522A"
-            className="opacity-0"
+            opacity="0"
+            style={{ opacity: 0 }}
             filter="drop-shadow(0 0 4px #C8522A)"
           />
           <circle
             ref={packetApiDbRef}
             r="4"
             fill="#C8522A"
-            className="opacity-0"
+            opacity="0"
+            style={{ opacity: 0 }}
             filter="drop-shadow(0 0 4px #C8522A)"
           />
           <circle
             ref={packetDbApiRef}
             r="4"
             fill="#C8522A"
-            className="opacity-0"
+            opacity="0"
+            style={{ opacity: 0 }}
             filter="drop-shadow(0 0 4px #C8522A)"
           />
           <circle
             ref={packetApiClientRef}
             r="4"
             fill="#C8522A"
-            className="opacity-0"
+            opacity="0"
+            style={{ opacity: 0 }}
             filter="drop-shadow(0 0 4px #C8522A)"
           />
         </svg>

@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
+
+const HOME_ROUTES = ['/', '/about', '/projects', '/gallery', '/experience', '/testimonials', '/contact'];
 
 interface NavbarProps {
   activeSection?: string;
@@ -16,18 +18,23 @@ export const Navbar: React.FC<NavbarProps> = ({
   const { toggleTheme } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
     { label: 'About', sectionId: 'about' },
+    { label: 'Experience', sectionId: 'experience' },
     { label: 'Work', sectionId: 'projects' },
     { label: 'Gallery', sectionId: 'gallery' },
     { label: 'Contact', sectionId: 'contact' },
   ];
 
+  const isHomeRoute = HOME_ROUTES.includes(location.pathname);
+
   const handleLinkClick = (e: React.MouseEvent, sectionId: string) => {
     e.preventDefault();
-    if (location.pathname !== '/') {
-      navigate(`/#${sectionId}`);
+    setMobileMenuOpen(false);
+    if (!isHomeRoute) {
+      navigate(`/${sectionId}`);
       return;
     }
 
@@ -43,13 +50,17 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <nav className="fixed top-4 left-4 right-4 md:top-6 md:left-6 md:right-6 z-50 bg-cream/90 dark:bg-ink/90 backdrop-blur-md rounded-xl border border-ink/10 dark:border-cream/10 transition-colors duration-300">
+    <nav
+      aria-label="Main navigation"
+      className="fixed top-4 left-4 right-4 md:top-6 md:left-6 md:right-6 z-50 bg-cream/90 dark:bg-ink/90 backdrop-blur-md rounded-xl border border-ink/10 dark:border-cream/10 transition-colors duration-300"
+    >
       <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
         <a
           href="/"
           onClick={(e) => {
             e.preventDefault();
-            if (location.pathname === '/') {
+            setMobileMenuOpen(false);
+            if (isHomeRoute) {
               window.scrollTo({ top: 0, behavior: 'smooth' });
               window.history.pushState(null, '', '/');
             } else {
@@ -61,7 +72,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           enzo.daniela
         </a>
 
-        <div className="flex items-center gap-4 sm:gap-6">
+        <div className="flex items-center gap-3 sm:gap-6">
           {navLinks.map((link) => (
             <a
               key={link.sectionId}
@@ -82,6 +93,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               onClick={onOpenCommandPalette}
               title="Search & Commands (Cmd+K / Ctrl+K)"
+              aria-label="Open command palette"
               className="flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-mono border border-ink/20 dark:border-cream/20 rounded-md opacity-70 hover:opacity-100 hover:border-accent transition-all duration-200"
             >
               <span className="opacity-60 text-[10px]">⌘</span>
@@ -116,8 +128,53 @@ export const Navbar: React.FC<NavbarProps> = ({
               <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" />
             </svg>
           </button>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+            aria-label="Toggle navigation menu"
+            aria-expanded={mobileMenuOpen}
+            className="sm:hidden w-7 h-7 flex flex-col items-center justify-center gap-1 rounded-md border border-ink/20 dark:border-cream/20 hover:border-accent transition-colors"
+          >
+            <span
+              className={`w-3.5 h-0.5 bg-current transition-transform duration-200 ${
+                mobileMenuOpen ? 'translate-y-1.5 rotate-45' : ''
+              }`}
+            />
+            <span
+              className={`w-3.5 h-0.5 bg-current transition-opacity duration-200 ${
+                mobileMenuOpen ? 'opacity-0' : ''
+              }`}
+            />
+            <span
+              className={`w-3.5 h-0.5 bg-current transition-transform duration-200 ${
+                mobileMenuOpen ? '-translate-y-1.5 -rotate-45' : ''
+              }`}
+            />
+          </button>
         </div>
       </div>
+
+      {/* Mobile Dropdown Menu */}
+      {mobileMenuOpen && (
+        <div className="sm:hidden border-t border-ink/10 dark:border-cream/10 px-6 py-4 flex flex-col gap-3">
+          {navLinks.map((link) => (
+            <a
+              key={link.sectionId}
+              href={`/${link.sectionId}`}
+              onClick={(e) => handleLinkClick(e, link.sectionId)}
+              className={`text-xs tracking-widest uppercase py-1 transition-colors ${
+                activeSection === link.sectionId
+                  ? 'text-accent font-semibold'
+                  : 'opacity-70 hover:opacity-100 hover:text-accent'
+              }`}
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      )}
     </nav>
   );
 };

@@ -59,6 +59,8 @@ export const Experience: React.FC<ExperienceProps> = ({ experiences, onImageClic
                       <img
                         src={exp.logoUrl}
                         alt={`${exp.company} Logo`}
+                        loading="lazy"
+                        decoding="async"
                         className="w-12 h-12 object-contain bg-white dark:bg-transparent p-1 rounded border border-ink/10 dark:border-cream/10"
                       />
                     ) : (
@@ -111,6 +113,8 @@ export const Experience: React.FC<ExperienceProps> = ({ experiences, onImageClic
                             <img
                               src={img.url}
                               alt={img.caption}
+                              loading="lazy"
+                              decoding="async"
                               onClick={() => onImageClick(img.url, img.caption)}
                               className="previewable-img w-full h-full object-cover grayscale group-hover/img:grayscale-0 group-hover/img:scale-105 transition-all duration-500 cursor-zoom-in"
                             />
