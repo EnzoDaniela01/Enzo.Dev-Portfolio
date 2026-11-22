@@ -35,22 +35,6 @@ export const Projects: React.FC<ProjectsProps> = ({ projects, onImageClick, onSe
     (filter === 'all' ? projects.find((p) => p.featured) : null);
   const regularProjects = filteredProjects.filter((p) => p !== featured);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const xc = rect.width / 2;
-    const yc = rect.height / 2;
-    const angleX = (yc - y) / 16;
-    const angleY = (x - xc) / 16;
-    card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale3d(1.01, 1.01, 1.01)`;
-  };
-
-  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-  };
-
   return (
     <section id="projects" className="section-card py-24 px-6">
       <div className="max-w-5xl mx-auto">
@@ -92,11 +76,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects, onImageClick, onSe
         <div className="w-full">
           {/* Featured Project Showcase */}
           {featured && (
-            <div
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-              className="project-card neu-surface block group mb-8 transition-all duration-300 transform scale-100 opacity-100 overflow-hidden"
-            >
+            <div className="project-card neu-surface block group mb-8 transition-all duration-300 overflow-hidden">
               <div className="relative overflow-hidden">
                 {featured.imageUrl ? (
                   <img
@@ -190,9 +170,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects, onImageClick, onSe
             {regularProjects.map((p) => (
               <div
                 key={p.id}
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
-                className="project-card neu-surface-sm group overflow-hidden transition-all duration-300 transform scale-100 opacity-100 flex flex-col justify-between"
+                className="project-card neu-surface-sm group overflow-hidden transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
                   <div className="overflow-hidden border-b border-ink/10 dark:border-cream/10 relative">
