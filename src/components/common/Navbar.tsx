@@ -53,9 +53,9 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <nav
       aria-label="Main navigation"
-      className="fixed top-4 left-4 right-4 md:top-6 md:left-6 md:right-6 z-50 neu-surface backdrop-blur-md transition-all duration-300"
+      className="fixed top-3 left-3 right-3 md:top-6 md:left-6 md:right-6 z-50 neu-surface backdrop-blur-md transition-all duration-300"
     >
-      <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-2">
         <a
           href="/"
           onClick={(e) => {
@@ -73,13 +73,13 @@ export const Navbar: React.FC<NavbarProps> = ({
           enzo.daniela
         </a>
 
-        <div className="flex items-center gap-3 sm:gap-6">
+        <div className="flex items-center gap-2.5 md:gap-5">
           {navLinks.map((link) => (
             <a
               key={link.sectionId}
               href={`/${link.sectionId}`}
               onClick={(e) => handleLinkClick(e, link.sectionId)}
-              className={`nav-link text-xs tracking-wider uppercase transition-all duration-200 hidden sm:block ${
+              className={`nav-link text-xs tracking-wider uppercase transition-all duration-200 hidden md:block ${
                 activeSection === link.sectionId
                   ? 'text-accent opacity-100 font-semibold'
                   : 'opacity-60 hover:opacity-100'
@@ -136,7 +136,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => setMobileMenuOpen((prev) => !prev)}
             aria-label="Toggle navigation menu"
             aria-expanded={mobileMenuOpen}
-            className="sm:hidden w-7 h-7 flex flex-col items-center justify-center gap-1 rounded-md border border-ink/20 dark:border-cream/20 hover:border-accent transition-colors"
+            className="md:hidden neu-btn w-8 h-8 flex flex-col items-center justify-center gap-1 rounded-lg"
           >
             <span
               className={`w-3.5 h-0.5 bg-current transition-transform duration-200 ${
@@ -159,7 +159,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Dropdown Menu */}
       {mobileMenuOpen && (
-        <div className="sm:hidden border-t border-ink/10 dark:border-cream/10 px-6 py-4 flex flex-col gap-3">
+        <div className="md:hidden border-t border-ink/10 dark:border-cream/10 px-5 py-4 flex flex-col gap-3">
           {navLinks.map((link) => (
             <a
               key={link.sectionId}

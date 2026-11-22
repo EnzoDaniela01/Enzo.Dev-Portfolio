@@ -84,10 +84,10 @@ export const Experience: React.FC<ExperienceProps> = ({ experiences, onImageClic
 
                     <div className="flex-1 min-w-0">
                       <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
-                        <h3 className="text-base sm:text-lg font-semibold text-accent truncate">{exp.company}</h3>
-                        <span className="text-xs opacity-50 font-mono flex-shrink-0">{exp.period}</span>
+                        <h3 className="text-sm sm:text-lg font-semibold text-accent leading-snug">{exp.company}</h3>
+                        <span className="text-[11px] sm:text-xs opacity-55 font-mono flex-shrink-0">{exp.period}</span>
                       </div>
-                      <p className="text-xs sm:text-sm font-semibold opacity-80 truncate">{exp.role}</p>
+                      <p className="text-xs sm:text-sm font-semibold opacity-80 mt-0.5">{exp.role}</p>
                     </div>
 
                     <span

@@ -61,8 +61,8 @@ export const About: React.FC<AboutProps> = ({ config, onImageClick }) => {
                 }
                 className="previewable-img w-full max-w-xs grayscale hover:grayscale-0 transition-all duration-500 border border-ink/10 dark:border-cream/10 cursor-zoom-in"
               />
-              <div className="absolute -bottom-4 -right-4 bg-accent text-cream px-4 py-2 shadow-sm">
-                <p className="text-xs tracking-widest uppercase">{config.badgeText || 'BSIT Graduate'}</p>
+              <div className="absolute bottom-3 right-3 sm:-bottom-4 sm:-right-4 bg-accent text-white px-4 py-2 rounded-lg shadow-md">
+                <p className="text-xs font-mono tracking-widest uppercase">{config.badgeText || 'Frontend Dev'}</p>
               </div>
             </div>
 

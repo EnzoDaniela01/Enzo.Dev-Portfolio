@@ -107,11 +107,11 @@ html.dark .neu-btn:active {
 /* Section Card System (Neumorphic) */
 .section-card {
   background: #E8ECEF;
-  border-radius: 1.5rem;
-  margin: 0 0.75rem 1.25rem;
+  border-radius: 1.25rem;
+  margin: 0 0.5rem 0.875rem;
   box-shadow:
-    10px 10px 24px #C5CCD3,
-    -10px -10px 24px #FFFFFF;
+    6px 6px 16px #C5CCD3,
+    -6px -6px 16px #FFFFFF;
   overflow: hidden;
   position: relative;
 }
@@ -119,8 +119,24 @@ html.dark .neu-btn:active {
 html.dark .section-card {
   background: #1A1D21;
   box-shadow:
-    10px 10px 24px #101215,
-    -10px -10px 24px #24282E;
+    6px 6px 16px #101215,
+    -6px -6px 16px #24282E;
+}
+
+@media (min-width: 768px) {
+  .section-card {
+    border-radius: 1.5rem;
+    margin: 0 0.75rem 1.25rem;
+    box-shadow:
+      10px 10px 24px #C5CCD3,
+      -10px -10px 24px #FFFFFF;
+  }
+
+  html.dark .section-card {
+    box-shadow:
+      10px 10px 24px #101215,
+      -10px -10px 24px #24282E;
+  }
 }
 
 .section-card--hero {

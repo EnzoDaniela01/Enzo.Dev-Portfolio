@@ -138,12 +138,12 @@ export const Contact: React.FC<ContactProps> = ({ config }) => {
 
           {/* Right: Direct Links & Resume CV Downloads */}
           <div className="space-y-0">
-            <div className="flex items-center justify-between py-5 border-t border-ink/10 dark:border-cream/10 group">
+            <div className="flex flex-wrap items-center justify-between gap-2 py-5 border-t border-ink/10 dark:border-cream/10 group">
               <span className="text-xs uppercase tracking-widest opacity-40">Email</span>
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-2.5 min-w-0">
                 <a
                   href={`mailto:${config.email || 'parane.enzo@gmail.com'}`}
-                  className="text-sm group-hover:text-accent transition-colors"
+                  className="text-xs sm:text-sm group-hover:text-accent transition-colors break-all"
                 >
                   {config.email || 'parane.enzo@gmail.com'} ↗
                 </a>
@@ -154,7 +154,7 @@ export const Contact: React.FC<ContactProps> = ({ config }) => {
                     showToast('Email address copied!', 'success');
                   }}
                   title="Copy email to clipboard"
-                  className="text-[10px] uppercase font-mono px-2 py-0.5 border border-ink/20 dark:border-cream/20 rounded opacity-60 hover:opacity-100 hover:border-accent"
+                  className="neu-btn text-[10px] uppercase font-mono px-2.5 py-1 rounded-md opacity-75 hover:opacity-100 hover:text-accent"
                 >
                   Copy
                 </button>
@@ -192,19 +192,19 @@ export const Contact: React.FC<ContactProps> = ({ config }) => {
             </a>
 
             <div className="pt-6">
-              <div className="flex gap-3">
+              <div className="flex flex-wrap gap-3">
                 <a
                   href="/doc/Enzo%20Daniela%20Resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-5 py-2.5 border border-ink/20 dark:border-cream/20 text-xs tracking-widest uppercase hover:bg-ink hover:text-cream dark:hover:bg-cream dark:hover:text-ink transition-colors"
+                  className="neu-btn px-5 py-2.5 rounded-xl text-xs font-mono tracking-widest uppercase hover:text-accent"
                 >
                   View PDF
                 </a>
                 <a
                   href="/doc/Enzo%20Daniela%20Resume.pdf"
                   download="Enzo Daniela Resume.pdf"
-                  className="px-5 py-2.5 border border-ink/20 dark:border-cream/20 text-xs tracking-widest uppercase hover:bg-ink hover:text-cream dark:hover:bg-cream dark:hover:text-ink transition-colors"
+                  className="neu-btn px-5 py-2.5 rounded-xl text-xs font-mono tracking-widest uppercase hover:text-accent"
                 >
                   Download CV
                 </a>

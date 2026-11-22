@@ -53,9 +53,9 @@ export const Hero: React.FC<HeroProps> = ({ config, liveProjectCount }) => {
         </div>
 
         {/* Divider + inline-pill bio + CTA row */}
-        <div className="animate-fade-up stagger-3 flex flex-col sm:flex-row sm:items-end gap-6 mt-8 pb-8">
+        <div className="animate-fade-up stagger-3 flex flex-col sm:flex-row sm:items-end gap-6 mt-6 sm:mt-8 pb-6 sm:pb-8">
           <div className="max-w-lg space-y-4">
-            <p className="text-sm sm:text-base leading-relaxed opacity-85">
+            <p className="text-sm sm:text-base leading-8 opacity-85">
               Frontend Developer &amp; UI/UX Engineer at{' '}
               <button
                 type="button"
@@ -136,44 +136,46 @@ export const Hero: React.FC<HeroProps> = ({ config, liveProjectCount }) => {
         </div>
 
         {/* Interactive Neumorphic Quick Stats row */}
-        <div className="animate-fade-up stagger-4 grid grid-cols-2 sm:grid-cols-4 gap-4 pb-8">
+        <div className="animate-fade-up stagger-4 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pb-8">
           <button
             type="button"
             onClick={() => scrollToSection('projects')}
-            className="neu-btn group text-left p-5 rounded-2xl"
+            className="neu-btn group text-left p-4 sm:p-5 rounded-2xl"
           >
-            <p className="font-display text-3xl sm:text-4xl font-bold text-accent group-hover:translate-x-0.5 transition-transform">
+            <p className="font-display text-2xl sm:text-4xl font-bold text-accent group-hover:translate-x-0.5 transition-transform">
               {liveProjectCount ? `${liveProjectCount}+` : '5+'}
             </p>
-            <p className="text-[11px] font-mono uppercase tracking-widest opacity-60 group-hover:opacity-100 mt-1">
+            <p className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider sm:tracking-widest opacity-60 group-hover:opacity-100 mt-1">
               Live Systems ↗
             </p>
           </button>
-          <div className="neu-inset p-5 rounded-2xl">
-            <p className="font-display text-3xl sm:text-4xl font-bold text-accent">4+yr</p>
-            <p className="text-[11px] font-mono uppercase tracking-widest opacity-60 mt-1">Coding</p>
+          <div className="neu-inset p-4 sm:p-5 rounded-2xl">
+            <p className="font-display text-2xl sm:text-4xl font-bold text-accent">4+yr</p>
+            <p className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider sm:tracking-widest opacity-60 mt-1">
+              Coding
+            </p>
           </div>
           <button
             type="button"
             onClick={() => scrollToSection('company')}
-            className="neu-btn group text-left p-5 rounded-2xl"
+            className="neu-btn group text-left p-4 sm:p-5 rounded-2xl"
           >
-            <p className="font-display text-3xl sm:text-4xl font-bold text-accent group-hover:translate-x-0.5 transition-transform">
+            <p className="font-display text-2xl sm:text-4xl font-bold text-accent group-hover:translate-x-0.5 transition-transform">
               GSDC
             </p>
-            <p className="text-[11px] font-mono uppercase tracking-widest opacity-60 group-hover:opacity-100 mt-1">
+            <p className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider sm:tracking-widest opacity-60 group-hover:opacity-100 mt-1">
               Frontend Dev ↗
             </p>
           </button>
           <button
             type="button"
             onClick={() => scrollToSection('experience')}
-            className="neu-btn group text-left p-5 rounded-2xl"
+            className="neu-btn group text-left p-4 sm:p-5 rounded-2xl"
           >
-            <p className="font-display text-3xl sm:text-4xl font-bold text-accent group-hover:translate-x-0.5 transition-transform">
+            <p className="font-display text-2xl sm:text-4xl font-bold text-accent group-hover:translate-x-0.5 transition-transform">
               BS
             </p>
-            <p className="text-[11px] font-mono uppercase tracking-widest opacity-60 group-hover:opacity-100 mt-1">
+            <p className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider sm:tracking-widest opacity-60 group-hover:opacity-100 mt-1">
               IT Degree ↗
             </p>
           </button>
