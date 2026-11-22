@@ -123,7 +123,6 @@ export const Hero: React.FC<HeroProps> = ({ config, liveProjectCount }) => {
               className="px-5 py-3 rounded-xl bg-accent text-white text-xs font-mono tracking-widest uppercase shadow-md hover:opacity-90 active:scale-[0.98] transition-all inline-flex items-center gap-2"
             >
               <span>{copied ? 'Email Copied!' : 'Copy Email'}</span>
-              <span className="text-[10px] opacity-85">{copied ? '✓' : '⧉'}</span>
             </button>
             <a
               href="/doc/Enzo%20Daniela%20Resume.pdf"

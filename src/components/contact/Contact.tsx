@@ -132,7 +132,6 @@ export const Contact: React.FC<ContactProps> = ({ config }) => {
                     ? 'Opening Mail Client...'
                     : 'Send Message'}
                 </span>
-                <span>{status === 'sending' ? '⋯' : status === 'success' ? '✓' : '→'}</span>
               </button>
             </form>
           </div>

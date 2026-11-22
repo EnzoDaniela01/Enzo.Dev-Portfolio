@@ -97,7 +97,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               aria-label="Open command palette"
               className="neu-btn flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-mono rounded-lg opacity-80 hover:opacity-100 hover:text-accent"
             >
-              <span className="opacity-60 text-[10px]">⌘</span>
+              <span className="opacity-70 text-[10px]">Ctrl</span>
               <span className="hidden sm:inline text-[10px]">K</span>
             </button>
           )}
