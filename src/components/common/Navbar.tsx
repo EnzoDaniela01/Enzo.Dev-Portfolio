@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
 
-const HOME_ROUTES = ['/', '/about', '/projects', '/gallery', '/experience', '/testimonials', '/contact'];
+const HOME_ROUTES = ['/', '/about', '/company', '/projects', '/gallery', '/experience', '/testimonials', '/contact'];
 
 interface NavbarProps {
   activeSection?: string;
@@ -22,6 +22,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const navLinks = [
     { label: 'About', sectionId: 'about' },
+    { label: 'Company', sectionId: 'company' },
     { label: 'Experience', sectionId: 'experience' },
     { label: 'Work', sectionId: 'projects' },
     { label: 'Gallery', sectionId: 'gallery' },

@@ -18,6 +18,7 @@ import { CommandPalette } from '../components/common/CommandPalette';
 import { ProjectModal } from '../components/projects/ProjectModal';
 import { Hero } from '../components/hero/Hero';
 import { About } from '../components/about/About';
+import { CurrentCompany } from '../components/company/CurrentCompany';
 import { Experience as ExperienceSection } from '../components/experience/Experience';
 import { Projects } from '../components/projects/Projects';
 import { Testimonials } from '../components/testimonials/Testimonials';
@@ -64,7 +65,7 @@ export const Home: React.FC = () => {
 
   // Scrollspy to update URL based on active visible section
   useEffect(() => {
-    const sections = ['about', 'experience', 'projects', 'testimonials', 'gallery', 'contact'];
+    const sections = ['about', 'company', 'experience', 'projects', 'testimonials', 'gallery', 'contact'];
     let timer: ReturnType<typeof setTimeout> | null = null;
 
     const handleScroll = () => {
@@ -149,6 +150,7 @@ export const Home: React.FC = () => {
           liveProjectCount={projects.filter((p) => Boolean(p.liveUrl)).length}
         />
         <About config={config} onImageClick={handleOpenImageModal} />
+        <CurrentCompany />
         <ExperienceSection experiences={experiences} onImageClick={handleOpenImageModal} />
         <Projects
           projects={projects}

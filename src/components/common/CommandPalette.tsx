@@ -44,6 +44,15 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
       },
     },
     {
+      id: 'nav-company',
+      label: 'Jump to Current Company (Great Sierra Dev Corp)',
+      category: 'Navigation',
+      action: () => {
+        onNavigateSection('company');
+        onClose();
+      },
+    },
+    {
       id: 'nav-experience',
       label: 'Jump to Career History & Experience',
       category: 'Navigation',

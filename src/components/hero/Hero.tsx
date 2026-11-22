@@ -19,14 +19,23 @@ export const Hero: React.FC<HeroProps> = ({ config, liveProjectCount }) => {
     setTimeout(() => setCopied(false), 2500);
   };
 
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      el.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+      window.history.pushState(null, '', `/${id}`);
+    }
+  };
+
   return (
-    <section className="section-card section-card--hero min-h-screen flex flex-col justify-center pt-28 pb-0 px-6">
+    <section className="section-card section-card--hero halftone-bg min-h-screen flex flex-col justify-center pt-28 pb-0 px-6">
       <div className="max-w-5xl mx-auto w-full">
         {/* Live Availability Status Pill & Label */}
         <div className="animate-fade-up stagger-1 flex flex-wrap items-center gap-3 mb-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-[10px] tracking-wider uppercase rounded-full">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span>IT Developer @ Great Sierra Dev Corp · Open for select collaborations</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true" />
+            <span>Frontend Developer @ Great Sierra Dev Corp · Open for select collaborations</span>
           </div>
           <span className="text-xs opacity-40 font-mono hidden sm:inline">•</span>
           <p className="text-xs tracking-[0.3em] uppercase text-accent font-semibold">
@@ -43,12 +52,59 @@ export const Hero: React.FC<HeroProps> = ({ config, liveProjectCount }) => {
           </h1>
         </div>
 
-        {/* Divider + tagline row */}
+        {/* Divider + inline-pill bio + CTA row */}
         <div className="animate-fade-up stagger-3 flex flex-col sm:flex-row sm:items-end gap-6 mt-8 pb-8 border-b border-ink/15 dark:border-cream/15">
-          <p className="text-sm leading-relaxed max-w-sm opacity-70">
-            {config.heroTagline ||
-              'IT Developer Programmer at Great Sierra Development Corporation & Web Developer based in Caloocan / Quezon City, Philippines. Building systems with React, TypeScript, Node.js, Express, SQL & Python.'}
-          </p>
+          <div className="max-w-md space-y-3">
+            <p className="text-sm leading-relaxed opacity-80">
+              Frontend Developer at{' '}
+              <button
+                type="button"
+                onClick={() => scrollToSection('company')}
+                className="inline-flex items-center px-2 py-0.5 mx-0.5 rounded-full border border-accent/40 bg-accent/10 text-accent text-xs font-medium hover:bg-accent hover:text-white transition-colors"
+              >
+                GSDC
+              </button>{' '}
+              building responsive{' '}
+              <span className="inline-flex items-center px-2 py-0.5 mx-0.5 rounded-full border border-ink/15 dark:border-cream/15 bg-ink/5 dark:bg-cream/5 text-xs">
+                React
+              </span>
+              ,{' '}
+              <span className="inline-flex items-center px-2 py-0.5 mx-0.5 rounded-full border border-ink/15 dark:border-cream/15 bg-ink/5 dark:bg-cream/5 text-xs">
+                TypeScript
+              </span>{' '}
+              &amp;{' '}
+              <span className="inline-flex items-center px-2 py-0.5 mx-0.5 rounded-full border border-ink/15 dark:border-cream/15 bg-ink/5 dark:bg-cream/5 text-xs">
+                AI-assisted
+              </span>{' '}
+              web apps from Quezon City, PH.
+            </p>
+            <div className="flex flex-wrap items-center gap-4 text-[11px] uppercase tracking-widest opacity-60">
+              <a
+                href="https://github.com/EnzoDaniela01"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-accent hover:opacity-100 transition-colors"
+              >
+                github ↗
+              </a>
+              <a
+                href="https://www.linkedin.com/in/enzo-daniela-685374324/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-accent hover:opacity-100 transition-colors"
+              >
+                linkedin ↗
+              </a>
+              <button
+                type="button"
+                onClick={() => scrollToSection('contact')}
+                className="hover:text-accent hover:opacity-100 transition-colors uppercase"
+              >
+                contact ↓
+              </button>
+            </div>
+          </div>
+
           <div className="sm:ml-auto flex flex-wrap gap-3">
             <button
               onClick={handleCopyEmail}
@@ -68,26 +124,48 @@ export const Hero: React.FC<HeroProps> = ({ config, liveProjectCount }) => {
           </div>
         </div>
 
-        {/* Quick Stats row */}
+        {/* Interactive Quick Stats row */}
         <div className="animate-fade-up stagger-4 grid grid-cols-2 sm:grid-cols-4 border-b border-ink/15 dark:border-cream/15">
-          <div className="py-6 pr-6 border-r border-ink/15 dark:border-cream/15">
-            <p className="font-display text-4xl font-normal text-accent">
-              {liveProjectCount ? `${liveProjectCount}+` : '7+'}
+          <button
+            type="button"
+            onClick={() => scrollToSection('projects')}
+            className="group text-left py-6 pr-6 border-r border-ink/15 dark:border-cream/15 hover:bg-ink/5 dark:hover:bg-cream/5 transition-colors"
+          >
+            <p className="font-display text-4xl font-normal text-accent group-hover:translate-x-0.5 transition-transform">
+              {liveProjectCount ? `${liveProjectCount}+` : '5+'}
             </p>
-            <p className="text-xs uppercase tracking-widest opacity-50 mt-1">Live Systems</p>
-          </div>
+            <p className="text-xs uppercase tracking-widest opacity-50 group-hover:opacity-90 mt-1">
+              Live Systems ↗
+            </p>
+          </button>
           <div className="py-6 px-6 border-r border-ink/15 dark:border-cream/15">
             <p className="font-display text-4xl font-normal text-accent">4+yr</p>
             <p className="text-xs uppercase tracking-widest opacity-50 mt-1">Coding</p>
           </div>
-          <div className="py-6 px-6 border-r border-ink/15 dark:border-cream/15">
-            <p className="font-display text-4xl font-normal text-accent">GSDC</p>
-            <p className="text-xs uppercase tracking-widest opacity-50 mt-1">Full-Time Role</p>
-          </div>
-          <div className="py-6 pl-6">
-            <p className="font-display text-4xl font-normal text-accent">BS</p>
-            <p className="text-xs uppercase tracking-widest opacity-50 mt-1">IT Degree</p>
-          </div>
+          <button
+            type="button"
+            onClick={() => scrollToSection('company')}
+            className="group text-left py-6 px-6 border-r border-ink/15 dark:border-cream/15 hover:bg-ink/5 dark:hover:bg-cream/5 transition-colors"
+          >
+            <p className="font-display text-4xl font-normal text-accent group-hover:translate-x-0.5 transition-transform">
+              GSDC
+            </p>
+            <p className="text-xs uppercase tracking-widest opacity-50 group-hover:opacity-90 mt-1">
+              Frontend Dev ↗
+            </p>
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollToSection('experience')}
+            className="group text-left py-6 pl-6 hover:bg-ink/5 dark:hover:bg-cream/5 transition-colors"
+          >
+            <p className="font-display text-4xl font-normal text-accent group-hover:translate-x-0.5 transition-transform">
+              BS
+            </p>
+            <p className="text-xs uppercase tracking-widest opacity-50 group-hover:opacity-90 mt-1">
+              IT Degree ↗
+            </p>
+          </button>
         </div>
       </div>
     </section>

@@ -36,6 +36,16 @@ html.dark .section-card {
   border-radius: 0 0 1.25rem 1.25rem;
 }
 
+/* Subtle editorial halftone dot texture */
+.halftone-bg {
+  background-image: radial-gradient(rgba(15, 14, 12, 0.06) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+html.dark .halftone-bg {
+  background-image: radial-gradient(rgba(247, 245, 240, 0.05) 1px, transparent 1px);
+}
+
 .section-card--footer {
   min-height: auto;
   background: #F7F5F0;

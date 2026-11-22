@@ -119,7 +119,7 @@ export const DEFAULT_PROJECTS: Project[] = [
 export const DEFAULT_EXPERIENCES: Experience[] = [
   {
     id: 'exp-gsdc',
-    role: 'IT Developer Programmer (Full-time)',
+    role: 'Frontend Developer (Full-time)',
     company: 'Great Sierra Development Corporation',
     period: 'Jul 2026 — Present',
     logoUrl: '/image/gsdc.jpg',
