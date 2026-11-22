@@ -6,13 +6,26 @@ interface AboutProps {
   onImageClick: (src: string, alt: string) => void;
 }
 
+const ACCENT_PRESETS = [
+  { name: 'Terracotta', rgb: '200 82 42', hex: '#C8522A' },
+  { name: 'Cobalt', rgb: '37 99 235', hex: '#2563EB' },
+  { name: 'Emerald', rgb: '5 150 105', hex: '#059669' },
+  { name: 'Violet', rgb: '124 58 237', hex: '#7C3AED' },
+];
+
 export const About: React.FC<AboutProps> = ({ config, onImageClick }) => {
   const [hoveredTech, setHoveredTech] = useState<string | null>(null);
+  const [activeAccent, setActiveAccent] = useState<string>('Terracotta');
+
+  const handleAccentChange = (preset: (typeof ACCENT_PRESETS)[number]) => {
+    setActiveAccent(preset.name);
+    document.documentElement.style.setProperty('--accent-rgb', preset.rgb);
+  };
 
   const techStack = {
-    backend: ['Node.js', 'Express.js', 'Python', 'SQL', 'MySQL', 'Firebase', 'Supabase'],
-    frontend: ['React', 'TypeScript', 'JavaScript', 'Tailwind', 'HTML/CSS'],
-    tools: ['Docker', 'Git/GitHub', 'Google Apps Script', 'Claude', 'GitHub Copilot', 'Antigravity'],
+    frontend: ['React', 'TypeScript', 'Tailwind CSS', 'shadcn/ui', 'Material UI', 'JavaScript', 'HTML5 / CSS3'],
+    tools: ['Antigravity', 'Codex', 'Claude', 'GitHub Copilot', 'Git / GitHub', 'Docker'],
+    backend: ['Node.js', 'Express.js', 'SQL', 'MySQL', 'Supabase', 'Firebase'],
   };
 
   const renderTechPill = (tech: string) => {
@@ -22,10 +35,8 @@ export const About: React.FC<AboutProps> = ({ config, onImageClick }) => {
         key={tech}
         onMouseEnter={() => setHoveredTech(tech.toLowerCase())}
         onMouseLeave={() => setHoveredTech(null)}
-        className={`tech-pill px-3 py-1 border text-xs tracking-wider transition-all duration-200 cursor-default select-none ${
-          isHighlighted
-            ? 'bg-accent/20 border-accent text-accent scale-105'
-            : 'border-ink/20 dark:border-cream/20'
+        className={`tech-pill px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all duration-200 cursor-default select-none ${
+          isHighlighted ? 'neu-inset text-accent font-semibold' : 'neu-surface-sm'
         }`}
       >
         {tech}
@@ -91,19 +102,58 @@ export const About: React.FC<AboutProps> = ({ config, onImageClick }) => {
             </p>
 
             {/* Tech Stack */}
-            <p className="text-xs tracking-[0.3em] uppercase text-accent mb-6">Tech Stack</p>
-            <div className="space-y-4">
+            <p className="text-xs font-mono tracking-[0.3em] uppercase text-accent mb-6 font-semibold">Tech Stack</p>
+            <div className="space-y-5">
               <div>
-                <p className="text-xs uppercase tracking-widest opacity-40 mb-2">Backend</p>
-                <div className="flex flex-wrap gap-2">{techStack.backend.map(renderTechPill)}</div>
+                <p className="text-[11px] font-mono uppercase tracking-widest opacity-55 mb-2.5">
+                  Frontend &amp; UI Libraries
+                </p>
+                <div className="flex flex-wrap gap-2.5">{techStack.frontend.map(renderTechPill)}</div>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-widest opacity-40 mb-2">Frontend</p>
-                <div className="flex flex-wrap gap-2">{techStack.frontend.map(renderTechPill)}</div>
+                <p className="text-[11px] font-mono uppercase tracking-widest opacity-55 mb-2.5">
+                  AI &amp; Engineering Tools
+                </p>
+                <div className="flex flex-wrap gap-2.5">{techStack.tools.map(renderTechPill)}</div>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-widest opacity-40 mb-2">Tools & AI</p>
-                <div className="flex flex-wrap gap-2">{techStack.tools.map(renderTechPill)}</div>
+                <p className="text-[11px] font-mono uppercase tracking-widest opacity-55 mb-2.5">
+                  Backend &amp; Data (Secondary)
+                </p>
+                <div className="flex flex-wrap gap-2.5">{techStack.backend.map(renderTechPill)}</div>
+              </div>
+            </div>
+
+            {/* Interactive UI Accent Playground */}
+            <div className="neu-inset p-5 mt-8">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <p className="text-[10px] font-mono uppercase tracking-[0.25em] text-accent font-semibold">
+                    Live UI Playground
+                  </p>
+                  <p className="text-xs opacity-65 mt-0.5">Test the portfolio&apos;s live Neumorphic accent token.</p>
+                </div>
+                <div className="flex items-center gap-2.5" role="group" aria-label="Accent color presets">
+                  {ACCENT_PRESETS.map((preset) => (
+                    <button
+                      key={preset.name}
+                      type="button"
+                      onClick={() => handleAccentChange(preset)}
+                      aria-label={`Switch accent to ${preset.name}`}
+                      aria-pressed={activeAccent === preset.name}
+                      title={preset.name}
+                      className={`w-7 h-7 rounded-full flex items-center justify-center transition-transform ${
+                        activeAccent === preset.name ? 'neu-inset scale-110' : 'neu-btn hover:scale-105'
+                      }`}
+                    >
+                      <span
+                        className="w-3.5 h-3.5 rounded-full"
+                        style={{ backgroundColor: preset.hex }}
+                        aria-hidden="true"
+                      />
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

@@ -35,7 +35,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-2xl bg-cream dark:bg-[#12110F] border border-ink/15 dark:border-cream/15 rounded-xl shadow-2xl overflow-hidden font-mono text-ink dark:text-cream max-h-[90vh] flex flex-col"
+        className="neu-surface w-full max-w-2xl overflow-hidden font-sans text-ink dark:text-cream max-h-[90vh] flex flex-col"
       >
         {/* Modal Header */}
         <div className="p-6 border-b border-ink/10 dark:border-cream/10 flex items-start justify-between gap-4">
@@ -103,7 +103,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
           </div>
 
           {/* Key Architecture Highlights */}
-          <div className="p-4 bg-ink/5 dark:bg-cream/5 border border-ink/10 dark:border-cream/10 rounded-lg space-y-2">
+          <div className="neu-inset p-4 space-y-2">
             <h4 className="text-[10px] uppercase tracking-widest font-semibold opacity-60">
               Engineering Architecture
             </h4>

@@ -83,7 +83,7 @@ export const Contact: React.FC<ContactProps> = ({ config }) => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
-                  className="w-full bg-transparent border-b border-ink/20 dark:border-cream/20 py-2 text-xs focus:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent transition-colors duration-300 placeholder-ink/40 dark:placeholder-cream/40 text-ink dark:text-cream"
+                  className="neu-inset w-full px-4 py-3 text-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent transition-all duration-300 placeholder-ink/40 dark:placeholder-cream/40 text-ink dark:text-cream"
                 />
               </div>
               <div className="relative">
@@ -96,7 +96,7 @@ export const Contact: React.FC<ContactProps> = ({ config }) => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full bg-transparent border-b border-ink/20 dark:border-cream/20 py-2 text-xs focus:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent transition-colors duration-300 placeholder-ink/40 dark:placeholder-cream/40 text-ink dark:text-cream"
+                  className="neu-inset w-full px-4 py-3 text-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent transition-all duration-300 placeholder-ink/40 dark:placeholder-cream/40 text-ink dark:text-cream"
                 />
               </div>
               <div className="relative">
@@ -108,19 +108,19 @@ export const Contact: React.FC<ContactProps> = ({ config }) => {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   required
-                  className="w-full bg-transparent border-b border-ink/20 dark:border-cream/20 py-2 text-xs focus:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent transition-colors duration-300 placeholder-ink/40 dark:placeholder-cream/40 resize-none text-ink dark:text-cream"
+                  className="neu-inset w-full px-4 py-3 text-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent transition-all duration-300 placeholder-ink/40 dark:placeholder-cream/40 resize-none text-ink dark:text-cream"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={status === 'sending'}
-                className={`w-full inline-flex items-center justify-center gap-3 px-6 py-3 text-xs tracking-widest uppercase transition-all duration-300 border border-transparent ${
+                className={`w-full inline-flex items-center justify-center gap-3 px-6 py-3.5 rounded-xl text-xs font-mono tracking-widest uppercase transition-all duration-300 ${
                   status === 'success'
-                    ? 'bg-emerald-600 text-cream'
+                    ? 'bg-emerald-600 text-white shadow-md'
                     : status === 'sending' || status === 'fallback'
-                    ? 'bg-accent text-cream opacity-90'
-                    : 'bg-ink text-cream dark:bg-cream dark:text-ink hover:opacity-90'
+                    ? 'bg-accent text-white opacity-90 shadow-md'
+                    : 'bg-accent text-white shadow-md hover:opacity-90 active:scale-[0.98]'
                 }`}
               >
                 <span>
@@ -173,13 +173,13 @@ export const Contact: React.FC<ContactProps> = ({ config }) => {
             </a>
 
             <a
-              href="https://github.com/EnzoSoti"
+              href="https://github.com/EnzoDaniela01"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-between py-5 border-t border-ink/10 dark:border-cream/10 group"
             >
               <span className="text-xs uppercase tracking-widest opacity-40">GitHub</span>
-              <span className="text-sm group-hover:text-accent transition-colors">EnzoSoti ↗</span>
+              <span className="text-sm group-hover:text-accent transition-colors">EnzoDaniela01 ↗</span>
             </a>
 
             <a

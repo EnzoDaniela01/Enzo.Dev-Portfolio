@@ -38,8 +38,8 @@ export const CurrentCompany: React.FC = () => {
           </div>
         </div>
 
-        {/* Main Company Showcase Card */}
-        <div className="border border-ink/10 dark:border-cream/10 rounded-lg overflow-hidden bg-ink/5 dark:bg-cream/5">
+        {/* Main Company Showcase Card (Neumorphic) */}
+        <div className="neu-surface overflow-hidden">
           {/* Top Identity Row */}
           <div className="p-6 sm:p-8 border-b border-ink/10 dark:border-cream/10 flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="flex items-start sm:items-center gap-5">
@@ -63,12 +63,12 @@ export const CurrentCompany: React.FC = () => {
             </div>
 
             <a
-              href="https://gsdc.ph"
+              href="https://www.linkedin.com/company/great-sierra-development-corporation/"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-2.5 border border-ink/20 dark:border-cream/20 text-xs tracking-widest uppercase hover:bg-accent hover:border-accent hover:text-white transition-colors self-start md:self-center flex-shrink-0"
+              className="neu-btn px-5 py-2.5 rounded-xl text-xs font-mono tracking-widest uppercase hover:text-accent self-start md:self-center flex-shrink-0"
             >
-              Visit gsdc.ph ↗
+              View on LinkedIn ↗
             </a>
           </div>
 
@@ -95,12 +95,11 @@ export const CurrentCompany: React.FC = () => {
             </p>
             <div className="grid md:grid-cols-3 gap-4 mb-6">
               {focusAreas.map((area) => (
-                <div
-                  key={area.label}
-                  className="p-4 border border-ink/10 dark:border-cream/10 rounded bg-cream/60 dark:bg-ink/60"
-                >
-                  <h4 className="text-xs font-semibold uppercase tracking-wider text-accent mb-2">{area.label}</h4>
-                  <p className="text-xs opacity-70 leading-relaxed">{area.detail}</p>
+                <div key={area.label} className="neu-inset p-4">
+                  <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-accent mb-2">
+                    {area.label}
+                  </h4>
+                  <p className="text-xs opacity-75 leading-relaxed">{area.detail}</p>
                 </div>
               ))}
             </div>

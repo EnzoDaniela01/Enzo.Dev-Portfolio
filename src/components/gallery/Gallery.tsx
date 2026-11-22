@@ -103,7 +103,7 @@ export const Gallery: React.FC<GalleryProps> = ({ galleryItems, onImageClick }) 
               onClick={() => scroll(-1)}
               disabled={currentIndex === 0}
               aria-label="Previous slide"
-              className="w-10 h-10 border border-ink/20 dark:border-cream/20 flex items-center justify-center hover:border-accent hover:text-accent transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed group"
+              className="neu-btn w-10 h-10 rounded-xl flex items-center justify-center hover:text-accent disabled:opacity-30 disabled:cursor-not-allowed group"
             >
               <span className="text-sm transition-transform duration-200 group-hover:-translate-x-0.5">←</span>
             </button>
@@ -111,7 +111,7 @@ export const Gallery: React.FC<GalleryProps> = ({ galleryItems, onImageClick }) 
               onClick={() => scroll(1)}
               disabled={currentIndex >= total - 1}
               aria-label="Next slide"
-              className="w-10 h-10 border border-ink/20 dark:border-cream/20 flex items-center justify-center hover:border-accent hover:text-accent transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed group"
+              className="neu-btn w-10 h-10 rounded-xl flex items-center justify-center hover:text-accent disabled:opacity-30 disabled:cursor-not-allowed group"
             >
               <span className="text-sm transition-transform duration-200 group-hover:translate-x-0.5">→</span>
             </button>
@@ -137,8 +137,8 @@ export const Gallery: React.FC<GalleryProps> = ({ galleryItems, onImageClick }) 
             key={item.id || idx}
             className="gallery-slide flex-shrink-0 w-[85vw] sm:w-[70vw] md:w-[45vw] lg:w-[38vw]"
           >
-            <div className="gallery-item group overflow-hidden border border-ink/10 dark:border-cream/10 relative font-mono">
-              <div className="overflow-hidden aspect-[3/2]">
+            <div className="gallery-item neu-surface-sm group overflow-hidden relative font-mono p-2">
+              <div className="overflow-hidden aspect-[3/2] rounded-lg">
                 {item.imageUrl ? (
                   <img
                     src={item.imageUrl}

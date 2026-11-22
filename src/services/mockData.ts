@@ -4,16 +4,20 @@ export const DEFAULT_CONFIG: PortfolioConfig = {
   heroLabel: 'Portfolio — 2026',
   heroName1: 'Enzo',
   heroName2: 'Daniela.',
-  heroTagline: 'IT Developer Programmer at Great Sierra Development Corporation & Web Developer based in Caloocan / Quezon City, Philippines. Building systems with React, TypeScript, Node.js, Express, SQL & Python.',
-  aboutTitle: 'IT Developer Programmer who builds scalable web apps and robust systems.',
-  aboutText1: 'IT Developer Programmer at Great Sierra Development Corporation with hands-on experience in web development, API architecture, and database design. Focused on building robust server-side logic, responsive React & TypeScript interfaces, and automation workflows.',
-  aboutText2: 'Comfortable working on both solo and team-based enterprise projects. Uses modern toolchains and AI-assisted workflows like Claude and GitHub Copilot to accelerate development and optimize operational efficiency.',
-  badgeText: 'IT Developer',
+  heroTagline:
+    'Frontend Developer & UI/UX Engineer at Great Sierra Development Corporation. Crafting modern React & TypeScript interfaces with shadcn/ui, Material UI, and AI-assisted workflows like Antigravity & Codex.',
+  aboutTitle: 'Frontend-focused UI/UX developer crafting tactile, modern web interfaces.',
+  aboutText1:
+    'Frontend Developer at Great Sierra Development Corporation focused on building responsive, user-friendly React & TypeScript interfaces using modern component libraries like shadcn/ui, Material UI, and Tailwind CSS.',
+  aboutText2:
+    'I accelerate design-to-code delivery with AI engineering tools like Antigravity, Codex, Claude, and GitHub Copilot. While my day-to-day focus at work is Frontend UI/UX, I still step into backend APIs and databases whenever a project calls for it.',
+  badgeText: 'Frontend Dev',
   school: 'STI College Fairview',
   course: 'BS Information Technology',
   graduated: 'July 17, 2026',
   location: 'Caloocan City / QC, PH',
-  contactText: "Feel free to reach out for collaborations, software development inquiries, or system architecture discussions!",
+  contactText:
+    'Feel free to reach out for frontend collaborations, UI/UX builds, or modern web application inquiries!',
   email: 'parane.enzo@gmail.com',
   profileImg: '/image/gradpic.jpg',
 };

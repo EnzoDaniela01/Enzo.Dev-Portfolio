@@ -57,10 +57,8 @@ export const Experience: React.FC<ExperienceProps> = ({ experiences, onImageClic
               return (
                 <div
                   key={exp.id || idx}
-                  className={`border rounded-lg transition-colors duration-200 overflow-hidden ${
-                    isOpen
-                      ? 'border-accent/40 bg-ink/5 dark:bg-cream/5'
-                      : 'border-ink/10 dark:border-cream/10 hover:border-ink/25 dark:hover:border-cream/25'
+                  className={`transition-all duration-200 overflow-hidden ${
+                    isOpen ? 'neu-surface' : 'neu-surface-sm'
                   }`}
                 >
                   <button

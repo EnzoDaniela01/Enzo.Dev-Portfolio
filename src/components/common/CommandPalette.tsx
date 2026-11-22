@@ -124,10 +124,10 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     },
     {
       id: 'act-github',
-      label: 'Open GitHub Profile (@EnzoSoti)',
+      label: 'Open GitHub Profile (@EnzoDaniela01)',
       category: 'Actions',
       action: () => {
-        window.open('https://github.com/EnzoSoti', '_blank', 'noopener,noreferrer');
+        window.open('https://github.com/EnzoDaniela01', '_blank', 'noopener,noreferrer');
         onClose();
       },
     },
@@ -213,7 +213,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-xl bg-cream dark:bg-[#12110F] border border-ink/15 dark:border-cream/15 rounded-xl shadow-2xl overflow-hidden font-mono text-ink dark:text-cream"
+        className="neu-surface w-full max-w-xl overflow-hidden font-mono text-ink dark:text-cream"
       >
         {/* Search Header */}
         <div className="flex items-center px-4 border-b border-ink/10 dark:border-cream/10 h-14">

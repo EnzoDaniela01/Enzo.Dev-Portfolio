@@ -22,6 +22,7 @@ import { CurrentCompany } from '../components/company/CurrentCompany';
 import { Experience as ExperienceSection } from '../components/experience/Experience';
 import { Projects } from '../components/projects/Projects';
 import { Testimonials } from '../components/testimonials/Testimonials';
+import { Certifications } from '../components/certifications/Certifications';
 import { Gallery } from '../components/gallery/Gallery';
 import { Contact } from '../components/contact/Contact';
 
@@ -129,7 +130,7 @@ export const Home: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#E5E1DA] dark:bg-[#080706] text-ink dark:text-cream min-h-screen transition-colors duration-300 font-mono relative selection:bg-accent selection:text-white">
+    <div className="bg-[#E8ECEF] dark:bg-[#1A1D21] text-ink dark:text-cream min-h-screen transition-colors duration-300 font-sans relative selection:bg-accent selection:text-white">
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:px-4 focus:py-2 focus:bg-accent focus:text-white focus:text-xs focus:uppercase focus:tracking-widest"
@@ -158,6 +159,7 @@ export const Home: React.FC = () => {
           onSelectProject={(p) => setSelectedCaseStudyProject(p)}
         />
         <Testimonials />
+        <Certifications />
         <Gallery galleryItems={gallery} onImageClick={handleOpenImageModal} />
         <Contact config={config} />
       </main>

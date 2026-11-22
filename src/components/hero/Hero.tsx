@@ -53,32 +53,44 @@ export const Hero: React.FC<HeroProps> = ({ config, liveProjectCount }) => {
         </div>
 
         {/* Divider + inline-pill bio + CTA row */}
-        <div className="animate-fade-up stagger-3 flex flex-col sm:flex-row sm:items-end gap-6 mt-8 pb-8 border-b border-ink/15 dark:border-cream/15">
-          <div className="max-w-md space-y-3">
-            <p className="text-sm leading-relaxed opacity-80">
-              Frontend Developer at{' '}
+        <div className="animate-fade-up stagger-3 flex flex-col sm:flex-row sm:items-end gap-6 mt-8 pb-8">
+          <div className="max-w-lg space-y-4">
+            <p className="text-sm sm:text-base leading-relaxed opacity-85">
+              Frontend Developer &amp; UI/UX Engineer at{' '}
               <button
                 type="button"
                 onClick={() => scrollToSection('company')}
-                className="inline-flex items-center px-2 py-0.5 mx-0.5 rounded-full border border-accent/40 bg-accent/10 text-accent text-xs font-medium hover:bg-accent hover:text-white transition-colors"
+                className="neu-btn inline-flex items-center px-2.5 py-0.5 mx-0.5 rounded-full text-accent text-xs font-semibold"
               >
                 GSDC
               </button>{' '}
-              building responsive{' '}
-              <span className="inline-flex items-center px-2 py-0.5 mx-0.5 rounded-full border border-ink/15 dark:border-cream/15 bg-ink/5 dark:bg-cream/5 text-xs">
+              building modern{' '}
+              <span className="neu-surface-sm inline-flex items-center px-2.5 py-0.5 mx-0.5 rounded-full text-xs font-mono">
                 React
-              </span>
-              ,{' '}
-              <span className="inline-flex items-center px-2 py-0.5 mx-0.5 rounded-full border border-ink/15 dark:border-cream/15 bg-ink/5 dark:bg-cream/5 text-xs">
-                TypeScript
               </span>{' '}
               &amp;{' '}
-              <span className="inline-flex items-center px-2 py-0.5 mx-0.5 rounded-full border border-ink/15 dark:border-cream/15 bg-ink/5 dark:bg-cream/5 text-xs">
-                AI-assisted
+              <span className="neu-surface-sm inline-flex items-center px-2.5 py-0.5 mx-0.5 rounded-full text-xs font-mono">
+                TypeScript
               </span>{' '}
-              web apps from Quezon City, PH.
+              interfaces with{' '}
+              <span className="neu-surface-sm inline-flex items-center px-2.5 py-0.5 mx-0.5 rounded-full text-xs font-mono">
+                shadcn/ui
+              </span>
+              ,{' '}
+              <span className="neu-surface-sm inline-flex items-center px-2.5 py-0.5 mx-0.5 rounded-full text-xs font-mono">
+                Material UI
+              </span>
+              , and AI tools like{' '}
+              <span className="neu-surface-sm inline-flex items-center px-2.5 py-0.5 mx-0.5 rounded-full text-xs font-mono">
+                Antigravity
+              </span>{' '}
+              &amp;{' '}
+              <span className="neu-surface-sm inline-flex items-center px-2.5 py-0.5 mx-0.5 rounded-full text-xs font-mono">
+                Codex
+              </span>
+              .
             </p>
-            <div className="flex flex-wrap items-center gap-4 text-[11px] uppercase tracking-widest opacity-60">
+            <div className="flex flex-wrap items-center gap-4 text-[11px] font-mono uppercase tracking-widest opacity-65">
               <a
                 href="https://github.com/EnzoDaniela01"
                 target="_blank"
@@ -108,61 +120,61 @@ export const Hero: React.FC<HeroProps> = ({ config, liveProjectCount }) => {
           <div className="sm:ml-auto flex flex-wrap gap-3">
             <button
               onClick={handleCopyEmail}
-              className="px-5 py-2.5 bg-ink text-cream dark:bg-cream dark:text-ink text-xs tracking-widest uppercase hover:opacity-80 transition-opacity inline-flex items-center gap-2"
+              className="px-5 py-3 rounded-xl bg-accent text-white text-xs font-mono tracking-widest uppercase shadow-md hover:opacity-90 active:scale-[0.98] transition-all inline-flex items-center gap-2"
             >
               <span>{copied ? 'Email Copied!' : 'Copy Email'}</span>
-              <span className="text-[10px] opacity-75">{copied ? '✓' : '⧉'}</span>
+              <span className="text-[10px] opacity-85">{copied ? '✓' : '⧉'}</span>
             </button>
             <a
               href="/doc/Enzo%20Daniela%20Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-2.5 border border-ink dark:border-cream text-xs tracking-widest uppercase hover:bg-ink hover:text-cream dark:hover:bg-cream dark:hover:text-ink transition-colors"
+              className="neu-btn px-5 py-3 rounded-xl text-xs font-mono tracking-widest uppercase hover:text-accent"
             >
               Resume PDF ↗
             </a>
           </div>
         </div>
 
-        {/* Interactive Quick Stats row */}
-        <div className="animate-fade-up stagger-4 grid grid-cols-2 sm:grid-cols-4 border-b border-ink/15 dark:border-cream/15">
+        {/* Interactive Neumorphic Quick Stats row */}
+        <div className="animate-fade-up stagger-4 grid grid-cols-2 sm:grid-cols-4 gap-4 pb-8">
           <button
             type="button"
             onClick={() => scrollToSection('projects')}
-            className="group text-left py-6 pr-6 border-r border-ink/15 dark:border-cream/15 hover:bg-ink/5 dark:hover:bg-cream/5 transition-colors"
+            className="neu-btn group text-left p-5 rounded-2xl"
           >
-            <p className="font-display text-4xl font-normal text-accent group-hover:translate-x-0.5 transition-transform">
+            <p className="font-display text-3xl sm:text-4xl font-bold text-accent group-hover:translate-x-0.5 transition-transform">
               {liveProjectCount ? `${liveProjectCount}+` : '5+'}
             </p>
-            <p className="text-xs uppercase tracking-widest opacity-50 group-hover:opacity-90 mt-1">
+            <p className="text-[11px] font-mono uppercase tracking-widest opacity-60 group-hover:opacity-100 mt-1">
               Live Systems ↗
             </p>
           </button>
-          <div className="py-6 px-6 border-r border-ink/15 dark:border-cream/15">
-            <p className="font-display text-4xl font-normal text-accent">4+yr</p>
-            <p className="text-xs uppercase tracking-widest opacity-50 mt-1">Coding</p>
+          <div className="neu-inset p-5 rounded-2xl">
+            <p className="font-display text-3xl sm:text-4xl font-bold text-accent">4+yr</p>
+            <p className="text-[11px] font-mono uppercase tracking-widest opacity-60 mt-1">Coding</p>
           </div>
           <button
             type="button"
             onClick={() => scrollToSection('company')}
-            className="group text-left py-6 px-6 border-r border-ink/15 dark:border-cream/15 hover:bg-ink/5 dark:hover:bg-cream/5 transition-colors"
+            className="neu-btn group text-left p-5 rounded-2xl"
           >
-            <p className="font-display text-4xl font-normal text-accent group-hover:translate-x-0.5 transition-transform">
+            <p className="font-display text-3xl sm:text-4xl font-bold text-accent group-hover:translate-x-0.5 transition-transform">
               GSDC
             </p>
-            <p className="text-xs uppercase tracking-widest opacity-50 group-hover:opacity-90 mt-1">
+            <p className="text-[11px] font-mono uppercase tracking-widest opacity-60 group-hover:opacity-100 mt-1">
               Frontend Dev ↗
             </p>
           </button>
           <button
             type="button"
             onClick={() => scrollToSection('experience')}
-            className="group text-left py-6 pl-6 hover:bg-ink/5 dark:hover:bg-cream/5 transition-colors"
+            className="neu-btn group text-left p-5 rounded-2xl"
           >
-            <p className="font-display text-4xl font-normal text-accent group-hover:translate-x-0.5 transition-transform">
+            <p className="font-display text-3xl sm:text-4xl font-bold text-accent group-hover:translate-x-0.5 transition-transform">
               BS
             </p>
-            <p className="text-xs uppercase tracking-widest opacity-50 group-hover:opacity-90 mt-1">
+            <p className="text-[11px] font-mono uppercase tracking-widest opacity-60 group-hover:opacity-100 mt-1">
               IT Degree ↗
             </p>
           </button>

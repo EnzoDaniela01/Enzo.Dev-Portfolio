@@ -8,13 +8,16 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ['Georgia', 'serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', '"Fira Code"', 'monospace'],
       },
       colors: {
-        cream: '#F7F5F0',
-        ink: '#0F0E0C',
-        accent: '#C8522A',
+        cream: '#F4F6F8',
+        ink: '#1C2026',
+        accent: 'rgb(var(--accent-rgb) / <alpha-value>)',
+        'neu-light': '#E8ECEF',
+        'neu-dark': '#1A1D21',
       },
       keyframes: {
         fadeUp: {

@@ -53,7 +53,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <nav
       aria-label="Main navigation"
-      className="fixed top-4 left-4 right-4 md:top-6 md:left-6 md:right-6 z-50 bg-cream/90 dark:bg-ink/90 backdrop-blur-md rounded-xl border border-ink/10 dark:border-cream/10 transition-colors duration-300"
+      className="fixed top-4 left-4 right-4 md:top-6 md:left-6 md:right-6 z-50 neu-surface backdrop-blur-md transition-all duration-300"
     >
       <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
         <a
@@ -95,7 +95,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={onOpenCommandPalette}
               title="Search & Commands (Cmd+K / Ctrl+K)"
               aria-label="Open command palette"
-              className="flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-mono border border-ink/20 dark:border-cream/20 rounded-md opacity-70 hover:opacity-100 hover:border-accent transition-all duration-200"
+              className="neu-btn flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-mono rounded-lg opacity-80 hover:opacity-100 hover:text-accent"
             >
               <span className="opacity-60 text-[10px]">⌘</span>
               <span className="hidden sm:inline text-[10px]">K</span>
@@ -106,7 +106,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             id="themeToggle"
             onClick={toggleTheme}
-            className="relative w-7 h-7 flex items-center justify-center rounded-full border border-ink/20 dark:border-cream/20 hover:bg-ink/5 dark:hover:bg-cream/5 transition-colors group overflow-hidden"
+            className="neu-btn relative w-8 h-8 flex items-center justify-center rounded-full group overflow-hidden"
             aria-label="Toggle theme"
           >
             {/* Sun Icon */}

@@ -61,16 +61,16 @@ export const Projects: React.FC<ProjectsProps> = ({ projects, onImageClick, onSe
             <h2 className="font-display text-4xl font-normal">Projects.</h2>
           </div>
 
-          <div className="flex flex-wrap gap-2 text-xs">
+          <div className="flex flex-wrap gap-2.5 text-xs font-mono">
             {filterButtons.map((btn) => (
               <button
                 key={btn.value}
                 onClick={() => setFilter(btn.value)}
                 aria-pressed={filter === btn.value}
-                className={`filter-btn px-3 py-1 border transition-all duration-200 ${
+                className={`filter-btn px-4 py-1.5 rounded-xl transition-all duration-200 ${
                   filter === btn.value
-                    ? 'border-accent bg-accent text-cream'
-                    : 'border-ink/20 dark:border-cream/20 opacity-60 hover:opacity-100 hover:border-accent'
+                    ? 'neu-inset text-accent font-semibold'
+                    : 'neu-btn opacity-75 hover:opacity-100 hover:text-accent'
                 }`}
               >
                 {btn.label}
@@ -79,10 +79,10 @@ export const Projects: React.FC<ProjectsProps> = ({ projects, onImageClick, onSe
           </div>
 
           <a
-            href="https://github.com/EnzoSoti"
+            href="https://github.com/EnzoDaniela01"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs tracking-widest uppercase opacity-50 hover:opacity-100 hover:text-accent transition-all hidden md:inline-block"
+            className="text-xs font-mono tracking-widest uppercase opacity-60 hover:opacity-100 hover:text-accent transition-all hidden md:inline-block"
           >
             GitHub →
           </a>
@@ -95,7 +95,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects, onImageClick, onSe
             <div
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
-              className="project-card block group mb-6 transition-all duration-300 transform scale-100 opacity-100 border border-ink/10 dark:border-cream/10 rounded-lg overflow-hidden bg-ink/5 dark:bg-cream/5"
+              className="project-card neu-surface block group mb-8 transition-all duration-300 transform scale-100 opacity-100 overflow-hidden"
             >
               <div className="relative overflow-hidden">
                 {featured.imageUrl ? (
@@ -114,11 +114,17 @@ export const Projects: React.FC<ProjectsProps> = ({ projects, onImageClick, onSe
                 )}
 
                 <div className="absolute top-4 left-4 z-10 flex items-center gap-2">
-                  <span className="px-2.5 py-1 bg-accent text-white text-[10px] font-mono tracking-widest uppercase font-semibold rounded shadow-md">
+                  <span className="px-2.5 py-1 bg-accent text-white text-[10px] font-mono tracking-widest uppercase font-semibold rounded-full shadow-md">
                     Featured Project
                   </span>
+                  {featured.liveUrl && (
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-ink/80 dark:bg-black/80 text-emerald-400 text-[10px] font-mono tracking-widest uppercase rounded-full border border-emerald-500/30 backdrop-blur-sm">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true" />
+                      Live
+                    </span>
+                  )}
                   {featured.badge && (
-                    <span className="px-2.5 py-1 bg-ink/80 dark:bg-black/80 text-cream text-[10px] font-mono tracking-widest uppercase rounded border border-cream/15 backdrop-blur-sm">
+                    <span className="px-2.5 py-1 bg-ink/80 dark:bg-black/80 text-cream text-[10px] font-mono tracking-widest uppercase rounded-full border border-cream/15 backdrop-blur-sm">
                       {featured.badge}
                     </span>
                   )}
@@ -186,7 +192,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects, onImageClick, onSe
                 key={p.id}
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
-                className="project-card group border border-ink/10 dark:border-cream/10 rounded-lg overflow-hidden transition-all duration-300 transform scale-100 opacity-100 flex flex-col justify-between bg-ink/5 dark:bg-cream/5"
+                className="project-card neu-surface-sm group overflow-hidden transition-all duration-300 transform scale-100 opacity-100 flex flex-col justify-between"
               >
                 <div>
                   <div className="overflow-hidden border-b border-ink/10 dark:border-cream/10 relative">
@@ -207,11 +213,19 @@ export const Projects: React.FC<ProjectsProps> = ({ projects, onImageClick, onSe
                       </div>
                     )}
 
-                    {p.badge && (
-                      <span className="absolute top-3 left-3 px-2 py-0.5 bg-ink/80 dark:bg-black/80 border border-cream/15 text-cream text-[9px] uppercase tracking-wider font-semibold rounded backdrop-blur-sm">
-                        {p.badge}
-                      </span>
-                    )}
+                    <div className="absolute top-3 left-3 flex items-center gap-1.5">
+                      {p.badge && (
+                        <span className="px-2 py-0.5 bg-ink/80 dark:bg-black/80 border border-cream/15 text-cream text-[9px] uppercase tracking-wider font-semibold rounded-full backdrop-blur-sm">
+                          {p.badge}
+                        </span>
+                      )}
+                      {p.liveUrl && (
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-ink/80 dark:bg-black/80 border border-emerald-500/30 text-emerald-400 text-[9px] font-mono uppercase tracking-wider rounded-full backdrop-blur-sm">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" aria-hidden="true" />
+                          Live
+                        </span>
+                      )}
+                    </div>
                   </div>
 
                   <div className="p-5">
